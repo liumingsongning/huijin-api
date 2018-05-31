@@ -22,8 +22,10 @@ Route::get('/test', function () {
 Route::post('/webhook', function () {
     // echo exec('whoami') ;
     $path=base_path();
-    exec("sudo cd {$path} && /usr/bin/git reset --hard origin/master && /usr/bin/git clean -f && /usr/bin/git pull 2>&1");
+    $data = shell_exec('ls -l');
+    echo $data;
+    // shell_exec("sudo cd {$path} && /usr/bin/git reset --hard origin/master && /usr/bin/git clean -f && /usr/bin/git pull 2>&1");
     // dd($output);
-    return ['success'=>$output];
+    return ['success'=>$data];
 
 });
