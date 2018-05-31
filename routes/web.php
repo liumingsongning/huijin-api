@@ -24,7 +24,7 @@ Route::post('/webhook', function () {
     $path=base_path();
     $data = shell_exec('ls -l');
     echo $data;
-    $data2=shell_exec("sudo cd {$path} && /usr/bin/git reset --hard origin/master && /usr/bin/git clean -f && /usr/bin/git pull 2>&1");
+    $data2=shell_exec("cd {$path} && git pull ");
     echo 111111111111111111111111;
     echo 'zheshi'.$data2;
     // // dd($output);
