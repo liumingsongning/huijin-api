@@ -16,8 +16,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/test', function () {
-    // return view('welcome');
-    dd(9);
+    // // return view('welcome');
+    // dd(9);
 });
 
 Route::post('/webhook', 'WebhookController@pull');
