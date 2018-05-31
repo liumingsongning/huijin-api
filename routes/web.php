@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Http\Request;
+
 Route::get('/', function () {
     // return view('welcome');
     dd(1);
@@ -19,8 +21,9 @@ Route::get('/test', function () {
     // return view('welcome');
     dd(9);
 });
-Route::post('/webhook', function () {
+Route::post('/webhook', function (Request $request) {
     $path=base_path();
     // $data2=shell_exec("cd {$path} && sudo /usr/bin/git pull ");
     shell_exec("cd {$path} && sudo /usr/bin/git reset --hard origin/master && sudo /usr/bin/git clean -f && sudo /usr/bin/git pull 2>&1");
+    dd($request);
 });
