@@ -24,11 +24,12 @@ Route::get('/test', function () {
 Route::post('/webhook', function (Request $request) {
 
     $request_data = file_get_contents('php://input');
+
     $signe=hash_hmac('sha1', $request_data, 'liumingsongning');
     $path=base_path();
     shell_exec("cd {$path} && sudo /usr/bin/git reset --hard origin/master && sudo /usr/bin/git clean -f && sudo /usr/bin/git pull 2>&1");
     
     // return ['data'=>json_decode($request->payload)->repository->id];
-    return ['data'=>$signe];
+    return ['data'=>$request_data];
 
 });
