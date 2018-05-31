@@ -14,8 +14,7 @@
 use Illuminate\Http\Request;
 
 Route::get('/', function () {
-    // return view('welcome');
-    dd(1);
+    return view('welcome');
 });
 Route::get('/test', function () {
     // return view('welcome');
