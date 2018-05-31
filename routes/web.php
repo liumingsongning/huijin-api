@@ -22,7 +22,7 @@ Route::get('/test', function () {
     dd(9);
 });
 Route::post('/webhook', function (Request $request) {
-    
+
     $request_data = file_get_contents('php://input');
     $signe=hash_hmac('sha1', $request_data, 'liumingsongning');
     $path=base_path();
@@ -30,7 +30,5 @@ Route::post('/webhook', function (Request $request) {
     
     // return ['data'=>json_decode($request->payload)->repository->id];
     return ['data'=>$signe];
-
-    echo 4444466;
 
 });
