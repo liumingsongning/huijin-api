@@ -73,7 +73,7 @@ class GoodsController extends BaseController
      */
     public function show($id)
     {
-        $data = \App\models\good::find($id);
+        $data = \App\Models\good::find($id);
         if ($data) {
             return $this->response->array($data);
         } else {
