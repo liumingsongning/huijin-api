@@ -13,7 +13,7 @@ class WebhookController extends Controller
 
         $Signature = hash_hmac('sha1', $request_data, 'liumingsongning');
         echo $Signature;
-        echo $Signature== $request->header('X-Hub-Signature');
+        echo $request->header('X-Hub-Signature');
         if ($Signature == $request->header('X-Hub-Signature')) {
 
             $path = base_path();
