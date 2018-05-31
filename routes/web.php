@@ -24,5 +24,5 @@ Route::get('/test', function () {
 Route::post('/webhook', function (Request $request) {
     $path=base_path();
     shell_exec("cd {$path} && sudo /usr/bin/git reset --hard origin/master && sudo /usr/bin/git clean -f && sudo /usr/bin/git pull 2>&1");
-    dd($request);
+    return $request;
 });
