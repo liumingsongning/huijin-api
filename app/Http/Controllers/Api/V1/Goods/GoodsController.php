@@ -77,7 +77,7 @@ class GoodsController extends BaseController
         if ($data) {
             return $this->response->array($data);
         } else {
-            throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException();
+            throw $this->error('404','未发现该商品');
         }
 
     }
