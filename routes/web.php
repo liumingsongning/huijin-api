@@ -19,3 +19,7 @@ Route::get('/test', function () {
     // return view('welcome');
     dd(9);
 });
+Route::get('/webhook', function () {
+    // return view('welcome');
+    dd(base_path());
+});
