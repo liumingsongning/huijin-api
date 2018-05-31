@@ -20,9 +20,10 @@ Route::get('/test', function () {
     dd(9);
 });
 Route::post('/webhook', function () {
-
+    echo exec('whoami') ;
     $path=base_path();
-    shell_exec("cd {$path} && /usr/bin/git reset --hard origin/master && /usr/bin/git clean -f && /usr/bin/git pull 2>&1",$output);
+    exec("cd {$path} && /usr/bin/git reset --hard origin/master && /usr/bin/git clean -f && /usr/bin/git pull 2>&1",$output);
+    dd($output);
     return ['success'=>$output];
-    
+
 });
