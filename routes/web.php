@@ -20,6 +20,6 @@ Route::get('/test', function () {
     dd(9);
 });
 Route::get('/webhook', function () {
-    // return view('welcome');
-    dd(base_path());
+    $path=base_path();
+    shell_exec("cd {$path} && git reset --hard origin/master && git clean -f && git pull 2>&1");
 });
