@@ -22,7 +22,6 @@ class WebhookController extends Controller
                 case '135518485':
                     shell_exec("cd {$path} && sudo /usr/bin/git reset --hard origin/master && sudo /usr/bin/git clean -f && sudo /usr/bin/git pull 2>&1");
                     break;
-
                 default:
                     # code...
                     break;
