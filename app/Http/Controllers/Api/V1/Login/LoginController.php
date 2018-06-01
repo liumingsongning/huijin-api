@@ -12,7 +12,7 @@ class LoginController extends BaseController
     use sendcode;
     /**
      * @api {post} /sendcode sendcode
-     * @apiName Login
+     * @apiName sendcode
      * @apiGroup Login
      *
      * @apiParam {string} phone User phone.

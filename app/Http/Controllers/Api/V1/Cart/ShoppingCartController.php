@@ -90,7 +90,7 @@ class ShoppingCartController extends BaseController
     }
      /**
      * @api {post} /cart/add add cart
-     * @apiName Cart
+     * @apiName addCart
      * @apiGroup Cart
      *
      * @apiParam {string} good_id good id.
@@ -131,7 +131,7 @@ class ShoppingCartController extends BaseController
     }
      /**
      * @api {post} /cart/minus minus cart
-     * @apiName Cart
+     * @apiName minusCart
      * @apiGroup Cart
      *
      * @apiParam {string} rowId row id.
@@ -169,7 +169,7 @@ class ShoppingCartController extends BaseController
     }
      /**
      * @api {post} /cart/clear clear cart
-     * @apiName Cart
+     * @apiName clearCart
      * @apiGroup Cart
      *
      *
@@ -203,7 +203,7 @@ class ShoppingCartController extends BaseController
     }
       /**
      * @api {post} /cart/remove remove cart
-     * @apiName Cart
+     * @apiName removeCart
      * @apiGroup Cart
      *
      * @apiParam {string} rowId row id.
