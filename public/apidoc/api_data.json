@@ -70,6 +70,47 @@
   },
   {
     "type": "post",
+    "url": "/cart/display",
+    "title": "display cart",
+    "name": "displayCart",
+    "group": "Cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "rowId",
+            "description": "<p>row id.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"cart\": \"$cart\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 422 Access Denied\n{\n  \"message\": \"减少商品失败\",\n  \"status_code\": 422,\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Cart/ShoppingCartController.php",
+    "groupTitle": "Cart"
+  },
+  {
+    "type": "post",
     "url": "/cart/minus",
     "title": "minus cart",
     "name": "minusCart",

@@ -237,4 +237,36 @@ class ShoppingCartController extends BaseController
             return $this->error('422','移除商品失败');
         }
     }
+     /**
+     * @api {post} /cart/display display cart
+     * @apiName displayCart
+     * @apiGroup Cart
+     *
+     * @apiParam {string} rowId row id.
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "cart": "$cart"
+     *     }
+     *
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 422 Access Denied
+     *     {
+     *       "message": "减少商品失败",
+     *       "status_code": 422,
+     *     }
+     */
+    public function display(){
+        try{
+
+            $uid=$this->auth->user()->id;
+            Cart::restore($uid);
+            return $this->response->array(['cart' =>Cart::content()]);
+
+        }catch (Exception $e){
+            return $this->error('404','未查询到该商品');
+        }
+    }
 }
