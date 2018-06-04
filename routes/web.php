@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Redis;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,7 +16,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/test', function () {
-    return view('welcome');
+    Redis::set('123456', '123', 'EX', 3000);
+});
+Route::get('/test1', function () {
+    Redis::get('123456');
 });
 
 Route::post('/webhook', 'WebhookController@pull');
