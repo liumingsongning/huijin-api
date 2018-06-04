@@ -16,7 +16,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/test', function () {
-    Redis::set('123456', '123', 'EX', 3000);
+    $user=\App\User::create(['phone'=>'66666','name'=>'66666']);;
 });
 Route::get('/test1', function () {
     return Redis::get('123456');
