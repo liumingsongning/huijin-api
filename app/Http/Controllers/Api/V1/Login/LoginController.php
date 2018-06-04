@@ -84,13 +84,17 @@ class LoginController extends BaseController
      */
     public function login(Request $request)
     {
-        // if ($this->checkCode($request->phone, $request->code)) {
-            $user = \App\User::find(2);
-            $token = JWTAuth::fromUser($user);
-            return $this->response->array(['token' => $token]);
-        // } else {
-        //     $this->error('403', '验证码不正确');
-        // };
+        $phone=$request->phone;
+        // Hash::make('password')
+        if ($this->checkCode($request->phone, $request->code)) {
+            $user = \App\User::where('phone',$phone)->first();
+            if(!$user){
+                $user=\App\User::create(['phone'=>$phone]);
+            }   
+            return $this->response->array(['token' =>JWTAuth::fromUser($user)]);
+        } else {
+            $this->error('403', '验证码不正确');
+        };
     }
     public function index()
     {
