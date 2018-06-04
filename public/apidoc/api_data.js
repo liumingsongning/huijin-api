@@ -100,7 +100,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "HTTP/1.1 422 Access Denied\n{\n  \"message\": \"减少商品失败\",\n  \"status_code\": 422,\n}",
+          "content": "HTTP/1.1 422 Access Denied\n{\n  \"message\": \"未查询到该购物车\",\n  \"status_code\": 404,\n}",
           "type": "json"
         }
       ]

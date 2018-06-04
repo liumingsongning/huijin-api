@@ -254,8 +254,8 @@ class ShoppingCartController extends BaseController
      * @apiErrorExample Error-Response:
      *     HTTP/1.1 422 Access Denied
      *     {
-     *       "message": "减少商品失败",
-     *       "status_code": 422,
+     *       "message": "未查询到该购物车",
+     *       "status_code": 404,
      *     }
      */
     public function display(){
@@ -266,7 +266,7 @@ class ShoppingCartController extends BaseController
             return $this->response->array(['cart' =>Cart::content()]);
 
         }catch (Exception $e){
-            return $this->error('404','未查询到该商品');
+            return $this->error('404','未查询到该购物车');
         }
     }
 }
