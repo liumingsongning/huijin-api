@@ -89,7 +89,7 @@ class LoginController extends BaseController
         if ($this->checkCode($request->phone, $request->code)) {
             $user = \App\User::where('phone',$phone)->first();
             if(!$user){
-                $user=\App\User::create(['phone'=>$phone]);
+                $user=\App\User::create(['phone'=>$phone,'name'=>$phone]);
             }   
             return $this->response->array(['token' =>JWTAuth::fromUser($user)]);
         } else {
