@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api\V1\Goods;
 
 use App\Http\Controllers\Api\BaseController;
-use Illuminate\Http\Request;
 
 class GoodsController extends BaseController
 {

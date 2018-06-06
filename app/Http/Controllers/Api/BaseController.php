@@ -3,10 +3,23 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Dingo\Api\Routing\Helpers;
+use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
     use Helpers;
+
+    protected $uid='123';
+    function __construct(Request $request){
+        $this->middleware(function ($request, $next) {
+           
+            if($request->user()){
+                $this->uid=$request->user();
+            }
+
+            return $next($request);
+        });
+    } 
     public $nameSpace='\Symfony\Component\HttpKernel\Exception';
     // Dingo\Api\Exception\DeleteResourceFailedException 422
     // Dingo\Api\Exception\ResourceException 422

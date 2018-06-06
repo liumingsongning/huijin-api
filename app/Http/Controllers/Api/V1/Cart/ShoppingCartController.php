@@ -2,17 +2,11 @@
 
 namespace App\Http\Controllers\Api\V1\Cart;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Cart;
 use App\Http\Controllers\Api\BaseController;
 
 class ShoppingCartController extends BaseController
 {
-    function __construct(Request $request){
-        // $uid=$this->auth->user();
-        // 
-    } 
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +14,7 @@ class ShoppingCartController extends BaseController
      */
     public function index()
     {
-        //
+        dd($this->uid);
     }
 
     /**
@@ -110,15 +104,14 @@ class ShoppingCartController extends BaseController
      *     }
      */
     public function add(Request $request){
-        $good_id=$request->good_id;
-        $uid=$this->auth->user()->id;
-        $good=\App\Models\good::find($good_id);
+       
+        $good=\App\Models\good::find($request->good_id);
 
         try{
 
             Cart::restore($uid);
             Cart::add($good);
-            Cart::store($uid);
+            Cart::store($this->uid);
 
             return $this->response->array(['cart' =>Cart::content()]);
 
@@ -151,16 +144,16 @@ class ShoppingCartController extends BaseController
      *     }
      */
     public function minus(Request $request){
-        $uid=$this->auth->user()->id;
+       
        
         $rowId=$request->rowId;
 
         try{
 
-            Cart::restore($uid);
+            Cart::restore($this->uid);
             $num=Cart::get($rowId)->qty-1;
             Cart::update($rowId,$num);
-            Cart::store($uid);
+            Cart::store($this->uid);
 
             return $this->response->array(['cart' =>Cart::content()]);
         }catch (Exception $e){
@@ -188,12 +181,12 @@ class ShoppingCartController extends BaseController
      *     }
      */
     public function clear(){
-        $uid=$this->auth->user()->id;
+       
         try{
 
-            Cart::restore($uid);
+            Cart::restore($this->uid);
             Cart::destroy();
-            Cart::store($uid);
+            Cart::store($this->uid);
 
             return $this->response->array(['cart' =>Cart::content()]);
         }catch (Exception $e){
@@ -223,13 +216,12 @@ class ShoppingCartController extends BaseController
      *     }
      */
     public function remove(Request $request){
-        $uid=$this->auth->user()->id;
-        $rowId=$request->rowId;
+      
         try{
 
-            Cart::restore($uid);
-            Cart::remove($rowId);
-            Cart::store($uid);
+            Cart::restore($this->uid);
+            Cart::remove($request->rowId);
+            Cart::store($this->uid);
 
             return $this->response->array(['cart' =>Cart::content()]);
 
@@ -261,8 +253,7 @@ class ShoppingCartController extends BaseController
     public function display(){
         try{
 
-            $uid=$this->auth->user()->id;
-            Cart::restore($uid);
+            Cart::restore($this->uid);
             return $this->response->array(['cart' =>Cart::content()]);
 
         }catch (Exception $e){

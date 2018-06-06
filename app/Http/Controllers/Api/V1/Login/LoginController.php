@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Api\V1\Login;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Controllers\Api\V1\traits\sendcode;
-use Illuminate\Http\Request;
 use JWTAuth;
 use Lshorz\Luocaptcha\Facades\LCaptcha;
 
