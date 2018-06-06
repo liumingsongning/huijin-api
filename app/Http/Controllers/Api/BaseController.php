@@ -14,7 +14,7 @@ class BaseController extends Controller
         $this->middleware(function ($request, $next) {
            
             if($request->user()){
-                $this->uid=$request->user();
+                $this->uid=$request->user()->id;
             }
 
             return $next($request);
