@@ -43,11 +43,15 @@ class AddressController extends BaseController
      * @apiParam {string} consignee 收件人.
      * @apiParam {string} email 邮件地址
      * @apiParam {string} country 国家码.
-     * @apiParam {string} code code
-     * @apiParam {string} phone User phone.
-     * @apiParam {string} code code
-     * @apiParam {string} phone User phone.
-     * @apiParam {string} code code
+     * @apiParam {string} province 省码
+     * @apiParam {string} city 城市码.
+     * @apiParam {string} district 地区码
+     * @apiParam {string} address 地址全文.
+     * @apiParam {string} zipcode 邮政编码
+     * @apiParam {string} tel 座机
+     * @apiParam {string} mobile 手机
+     * @apiParam {string} sign_building 标志建筑
+     * @apiParam {string} best_time 最佳送货时间
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
@@ -60,7 +64,7 @@ class AddressController extends BaseController
      * @apiErrorExample Error-Response:
      *     HTTP/1.1 403 Access Denied
      *     {
-     *       "message": "验证码不正确",
+     *       "message": "地址存储失败",
      *       "status_code": 403,
      *     }
      */
@@ -72,7 +76,14 @@ class AddressController extends BaseController
      */
     public function store(Request $request)
     {
-        // $request->
+        $model=new \App\Models\user_address;
+        $model->fill($request->all());
+        $create=$model->save();
+        if($create){
+            return $this->response->array(['address'=>$model]);
+        }else{
+            return $this->Error('402','添加失败');
+        }
     }
 
     /**
@@ -85,7 +96,7 @@ class AddressController extends BaseController
     {
         //
     }
-
+   
     /**
      * Show the form for editing the specified resource.
      *
@@ -94,9 +105,49 @@ class AddressController extends BaseController
      */
     public function edit($id)
     {
-        //
+        $model=new \App\Models\user_address;
+        $model = $model->find($id);
+        $model->fill($this->request->all());
+        $update=$model->save();
+        if($update){
+            return $this->response->array(['address'=>$model]);
+        }else{
+            return $this->Error('402','修改失败');
+        }
     }
-
+      /**
+     * @api {put} /address/:id address update
+     * @apiName updateAddress
+     * @apiGroup Address
+     *
+     * @apiParam {string} consignee 收件人.
+     * @apiParam {string} email 邮件地址
+     * @apiParam {string} country 国家码.
+     * @apiParam {string} province 省码
+     * @apiParam {string} city 城市码.
+     * @apiParam {string} district 地区码
+     * @apiParam {string} address 地址全文.
+     * @apiParam {string} zipcode 邮政编码
+     * @apiParam {string} tel 座机
+     * @apiParam {string} mobile 手机
+     * @apiParam {string} sign_building 标志建筑
+     * @apiParam {string} best_time 最佳送货时间
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "token": "$token"
+     *     }
+     *
+     * @apiError AccessDenied The phone of the User was error.
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 403 Access Denied
+     *     {
+     *       "message": "地址存储失败",
+     *       "status_code": 403,
+     *     }
+     */
     /**
      * Update the specified resource in storage.
      *
@@ -106,7 +157,15 @@ class AddressController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        //
+        $model=new \App\Models\user_address;
+        $model = $model->find($id);
+        $model->fill($request->all());
+        $update=$model->save();
+        if($update){
+            return $this->response->array(['address'=>$model]);
+        }else{
+            return $this->Error('402','修改失败');
+        }
     }
 
     /**
