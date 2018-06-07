@@ -111,7 +111,7 @@ class LoginController extends BaseController
             if(!$user){
                 $user=\App\User::create(['phone'=>$phone,'name'=>$phone]);
             }   
-            return $this->response->array(['token' =>JWTAuth::fromUser($user)]);
+            return $this->response->array(['token' =>JWTAuth::fromUser($user),'user'=>$user]);
         } else {
             $this->error('403', '验证码不正确');
         };
