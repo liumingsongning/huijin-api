@@ -110,7 +110,7 @@ class ShoppingCartController extends BaseController
 
         try{
 
-            Cart::restore($uid);
+            Cart::restore($this->uid);
             Cart::add($good);
             Cart::store($this->uid);
 
