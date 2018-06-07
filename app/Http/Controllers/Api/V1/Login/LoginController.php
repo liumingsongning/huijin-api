@@ -10,8 +10,8 @@ class LoginController extends BaseController
 {
     use sendcode;
     /**
-     * @api {post} /sendcode sendcode
-     * @apiName sendcode
+     * @api {post} /checkcaptcha checkcaptcha
+     * @apiName checkcaptcha
      * @apiGroup Login
      *
      * @apiParam {string} phone User phone.
@@ -31,7 +31,35 @@ class LoginController extends BaseController
      *       "message": "人机验证失败",
      *       "status_code": 400,
      *     }
-     *     or
+     */
+    public function checkcaptcha(Request $request)
+    {
+        // $this->error('400','人机验证失败');
+        $res = LCaptcha::verify($request->captcha);
+     
+        if ($res) {
+            return $this->response->array(['success' => 1]);
+        } else {
+            $this->error('400','人机验证失败');
+        }
+
+    }
+    /**
+     * @api {post} /sendcode sendcode
+     * @apiName sendcode
+     * @apiGroup Login
+     *
+     * @apiParam {string} phone User phone.
+     * @apiParam {string} captcha luosimao captcha.
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "success": "1"
+     *     }
+     *
+     * @apiError AccessDenied The phone of the User was error.
+     *
      *     HTTP/1.1 403 Access Denied
      *     {
      *       "message": "错误消息提示",
@@ -40,22 +68,14 @@ class LoginController extends BaseController
      */
     public function sendPhoneCode(Request $request)
     {
-        // $this->error('400','人机验证失败');
-        $res = LCaptcha::verify($request->captcha);
      
-        if ($res) {
+        $data = $this->sendcode($request->phone);
 
-            $data = $this->sendcode($request->phone);
-
-            if ($data->error == 0) {
-                return $this->response->array(['success' => 1]);
-            } else {
-                $this->error('403', $data->msg);
-            };
-
+        if ($data->error == 0) {
+            return $this->response->array(['success' => 1]);
         } else {
-            $this->error('400','人机验证失败');
-        }
+            $this->error('403', $data->msg);
+        };
 
     }
     /**

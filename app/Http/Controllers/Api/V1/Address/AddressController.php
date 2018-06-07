@@ -9,10 +9,7 @@ class AddressController extends BaseController
     protected $model;
     function __construct(Request $request) {
         parent::__construct($request);
-        $this->middleware(function ($request, $next) {
-            $this->model=\App\Models\user_address::where('user_id',$this->uid);
-            return $next($request);
-        });
+        $this->model=\App\Models\user_address::where('user_id',$this->uid);
     }
     /**
      * Display a listing of the resource.
@@ -21,8 +18,12 @@ class AddressController extends BaseController
      */
     public function index(Request $request)
     {
-        dd($this->uid);
-        return $this->model->get();
+        $data=$this->model->get();
+        if($data){
+            return $this->response->array(['address'=>$data]);
+        }else{
+            $this->error('404', '还没有数据');
+        }
     }
 
     /**
