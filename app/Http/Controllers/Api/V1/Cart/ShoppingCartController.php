@@ -235,7 +235,6 @@ class ShoppingCartController extends BaseController
      * @apiName displayCart
      * @apiGroup Cart
      *
-     * @apiParam {string} rowId row id.
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK

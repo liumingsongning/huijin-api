@@ -330,19 +330,6 @@ define({ "api": [
     "title": "display cart",
     "name": "displayCart",
     "group": "Cart",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
-            "field": "rowId",
-            "description": "<p>row id.</p>"
-          }
-        ]
-      }
-    },
     "success": {
       "examples": [
         {
