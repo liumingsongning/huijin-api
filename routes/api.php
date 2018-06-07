@@ -16,7 +16,7 @@ $api->version('v1', function ($api) {
         });
         $api->group(['middleware' => 'api.auth'],function($api){
             $api->group(['namespace'=>'\Cart'],function($api){
-                $api->resource('cart','ShoppingCartController');
+                // $api->resource('cart','ShoppingCartController');
                 $api->post('cart/add','ShoppingCartController@add');
                 $api->post('cart/minus','ShoppingCartController@minus');
                 $api->post('cart/remove','ShoppingCartController@remove');
