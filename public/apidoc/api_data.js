@@ -325,7 +325,7 @@ define({ "api": [
     "groupTitle": "Cart"
   },
   {
-    "type": "post",
+    "type": "get",
     "url": "/cart/display",
     "title": "display cart",
     "name": "displayCart",

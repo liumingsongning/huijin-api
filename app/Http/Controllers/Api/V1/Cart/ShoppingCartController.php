@@ -231,7 +231,7 @@ class ShoppingCartController extends BaseController
         }
     }
      /**
-     * @api {post} /cart/display display cart
+     * @api {get} /cart/display display cart
      * @apiName displayCart
      * @apiGroup Cart
      *
