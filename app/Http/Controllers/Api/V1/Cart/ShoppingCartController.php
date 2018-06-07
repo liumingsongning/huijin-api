@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Cart;
 
 use Cart;
 use App\Http\Controllers\Api\BaseController;
+use Illuminate\Http\Request;
 
 class ShoppingCartController extends BaseController
 {

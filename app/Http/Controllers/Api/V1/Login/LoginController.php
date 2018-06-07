@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\BaseController;
 use App\Http\Controllers\Api\V1\traits\sendcode;
 use JWTAuth;
 use Lshorz\Luocaptcha\Facades\LCaptcha;
+use Illuminate\Http\Request;
 
 class LoginController extends BaseController
 {
