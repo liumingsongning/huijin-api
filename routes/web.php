@@ -23,3 +23,6 @@ Route::get('/test1', function () {
 });
 
 Route::post('/webhook', 'WebhookController@pull');
+
+Route::get('auth/{driver}', 'Auth\SersocialiteController@redirectToProvider');
+Route::get('auth/{driver}/callback', 'Auth\SersocialiteController@handleProviderCallback');

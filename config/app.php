@@ -148,6 +148,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Barryvdh\Cors\ServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
+        \SocialiteProviders\Manager\ServiceProvider::class, 
         //Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 
         /*
@@ -214,6 +215,7 @@ return [
         'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
         'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
         'Cart' => Gloudemans\Shoppingcart\Facades\Cart::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
 

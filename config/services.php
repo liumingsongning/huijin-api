@@ -34,6 +34,11 @@ return [
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+    'qq' => [
+        'client_id' => env('QQ_KEY'),
+        'client_secret' => env('QQ_SECRET'),
+        'redirect' => env('QQ_REDIRECT_URI')
+    ],
     'luosimao'=>[
         // 'luosimaokey'=>'66b33e16fe0a42cc43c543acb0fe73b2',
 	    // 'luosimao_verify'=>'https://captcha.luosimao.com/api/site_verify',
