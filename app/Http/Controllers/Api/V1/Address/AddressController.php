@@ -18,8 +18,8 @@ class AddressController extends BaseController
      */
     public function index(Request $request)
     {
-        $data=$this->model->get();
-        if($data){
+        $data=$this->model->simplePaginate(10);
+        if(!isEmpty($data)){
             return $this->response->array(['address'=>$data]);
         }else{
             $this->error('404', '还没有数据');
@@ -167,7 +167,27 @@ class AddressController extends BaseController
             return $this->Error('402','修改失败');
         }
     }
-
+       /**
+     * @api {delete} /address/:id address delete
+     * @apiName deleteAddress
+     * @apiGroup Address
+     *
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "success": "1"
+     *     }
+     *
+     * @apiError AccessDenied The phone of the User was error.
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 403 Access Denied
+     *     {
+     *       "message": "删除失败",
+     *       "status_code": 403,
+     *     }
+     */
     /**
      * Remove the specified resource from storage.
      *
@@ -176,6 +196,13 @@ class AddressController extends BaseController
      */
     public function destroy($id)
     {
-        //
+        $model=new \App\Models\user_address;
+        $model = $model->find($id);
+        $data=$model->delete();
+        if($data){
+            return $this->response->array(['success'=>'1']);
+        }else{
+            return $this->Error('402','删除失败');
+        }
     }
 }
