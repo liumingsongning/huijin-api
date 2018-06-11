@@ -51,7 +51,7 @@ class SersocialiteController extends Controller
                 $model->fill($qq_user);
                 $model->save($qq_user);
 
-                return redirect()->away('www.huijinjiu.com/bind?type=qq&qq_id=' . $user->id);
+                return redirect()->away('http://www.huijinjiu.com/bind?type=qq&qq_id=' . $user->id);
             }
         }
         // $user->token;
