@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Socialite;
+
 class SersocialiteController extends Controller
 {
-      /**
+    /**
      * 重定向用户信息到 GitHub 认证页面。
      *
      * @return \Illuminate\Http\Response
      */
     public function redirectToProvider($driver)
     {
-        // dd(new Socialite);
         return Socialite::driver($driver)->redirect();
     }
 
@@ -26,7 +25,39 @@ class SersocialiteController extends Controller
     public function handleProviderCallback($driver)
     {
         $user = Socialite::driver($driver)->user();
-        dd($user);
+
+        if ($driver == 'qq') {
+
+            $model = new \App\Models\qq_user;
+
+            if ($qq = $this->findQq($user->id)) {
+
+                if ($qq->uid) {
+
+                    $login_user = \App\User::find($qq->uid);
+
+                    return redirect()->away('www.huijinjiu.com/bind?token=' . JWTAuth::fromUser($login_user));
+
+                } else {
+
+                    return redirect()->away('www.huijinjiu.com/bind?type=qq&qq_id=' . $qq->uid);
+
+                }
+
+            } else {
+
+                $qq_user = $user->user;
+                $qq_user['qq_id'] = $user->id;
+                $model->fill($qq_user);
+                $model->save($qq_user);
+
+                return redirect()->away('www.huijinjiu.com/bind?type=qq&qq_id=' . $user->id);
+            }
+        }
         // $user->token;
+    }
+    private function findQq($id)
+    {
+        return \App\Models\qq_user::where('qq_id', $id)->first();
     }
 }
