@@ -114,7 +114,7 @@ class ShoppingCartController extends BaseController
             Cart::add($good)->associate('\App\Models\good');
             Cart::store($this->uid);
 
-            return $this->response->array(['cart' =>Cart::content()]);
+            return $this->response->array(['cart' =>$this->transform(Cart::content())]);
 
         }catch (Exception $e){
             return $this->error('422','添加商品失败');
@@ -154,7 +154,7 @@ class ShoppingCartController extends BaseController
             Cart::update($rowId,$num);
             Cart::store($this->uid);
 
-            return $this->response->array(['cart' =>Cart::content()]);
+            return $this->response->array(['cart' =>$this->transform(Cart::content())]);
         }catch (Exception $e){
             return $this->error('422','减少商品失败');
         }
@@ -187,7 +187,7 @@ class ShoppingCartController extends BaseController
             Cart::destroy();
             Cart::store($this->uid);
 
-            return $this->response->array(['cart' =>Cart::content()]);
+            return $this->response->array(['cart' =>$this->transform(Cart::content())]);
         }catch (Exception $e){
             return $this->error('422','清空购物车失败');
         }
@@ -222,7 +222,7 @@ class ShoppingCartController extends BaseController
             Cart::remove($request->rowId);
             Cart::store($this->uid);
 
-            return $this->response->array(['cart' =>Cart::content()]);
+            return $this->response->array(['cart' =>$this->transform(Cart::content())]);
 
         }catch (Exception $e){
             return $this->error('422','移除商品失败');
@@ -253,12 +253,30 @@ class ShoppingCartController extends BaseController
         try{
 
             Cart::restore($this->uid);
-            $cart=Cart::content();
+            $cart=$this->transform(Cart::content());
             Cart::store($this->uid);
             return $this->response->array(['cart' =>$cart]);
 
         }catch (Exception $e){
             return $this->error('404','未查询到该购物车');
         }
+    }
+    public function transform($cart){
+        $call=[];
+        foreach($cart as $row){
+           
+            $data['rowId']=$row->rowId;
+            $data['id']=$row->id;
+            $data['name']=$row->name;
+            $data['qty']=$row->qty;
+            $data['price']=$row->price;
+            $data['options']=$row->options;
+            $data['tax']=$row->tax;
+            $data['subtotal']=$row->subtotal;
+            $data['model']=$row->model;
+            $call[]=$data;
+
+        }
+        return $call;
     }
 }
