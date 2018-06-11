@@ -120,8 +120,6 @@ class ShoppingCartController extends BaseController
             return $this->error('422','添加商品失败');
         }
 
-       
-        return Cart::content();
     }
      /**
      * @api {post} /cart/minus minus cart
