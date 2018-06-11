@@ -251,10 +251,13 @@ class ShoppingCartController extends BaseController
      *     }
      */
     public function display(){
+        // dd($this->uid);
         try{
 
             Cart::restore($this->uid);
-            return $this->response->array(['cart' =>Cart::content()]);
+            $cart=Cart::content();
+            Cart::store($this->uid);
+            return $this->response->array(['cart' =>$cart]);
 
         }catch (Exception $e){
             return $this->error('404','未查询到该购物车');
