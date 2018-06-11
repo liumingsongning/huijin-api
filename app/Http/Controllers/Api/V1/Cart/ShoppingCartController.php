@@ -111,7 +111,7 @@ class ShoppingCartController extends BaseController
         try{
 
             Cart::restore($this->uid);
-            Cart::add($good);
+            Cart::add($good)->associate('\App\Models\good');
             Cart::store($this->uid);
 
             return $this->response->array(['cart' =>Cart::content()]);
