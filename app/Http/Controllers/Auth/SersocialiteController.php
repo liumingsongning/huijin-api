@@ -15,7 +15,7 @@ class SersocialiteController extends Controller
     public function redirectToProvider($driver)
     {
         // dd(new Socialite);
-        return Socialite::driver($driver)->stateless()->redirect();
+        return Socialite::driver($driver)->redirect();
     }
 
     /**
