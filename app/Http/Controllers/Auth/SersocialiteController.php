@@ -36,11 +36,11 @@ class SersocialiteController extends Controller
 
                     $login_user = \App\User::find($qq->uid);
 
-                    return redirect()->away('www.huijinjiu.com/bind?token=' . JWTAuth::fromUser($login_user));
+                    return redirect()->away('http://www.huijinjiu.com/bind?token=' . JWTAuth::fromUser($login_user));
 
                 } else {
 
-                    return redirect()->away('www.huijinjiu.com/bind?type=qq&qq_id=' . $qq->uid);
+                    return redirect()->away('http://www.huijinjiu.com/bind?type=qq&qq_id=' . $qq->uid);
 
                 }
 

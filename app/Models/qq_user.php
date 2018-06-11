@@ -24,6 +24,6 @@ class qq_user extends Model
         'vip', 
         'yellow_vip_level', 
         'level', 
-        'id_yellow_year_vip', 
+        'is_yellow_year_vip', 
       ];
 }
