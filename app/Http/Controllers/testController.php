@@ -16,8 +16,8 @@ class testController extends Controller
             'subject'      => 'test',
             'total_fee'    => '0.01',
         ])->send();
-        dd($response);
-        $redirectUrl = $response->getRedirectUrl();
+        // dd($response);
+        $response->redirect();;
     }
     public function obj(){
         $gateway = Omnipay::create('Alipay_LegacyExpress');
