@@ -9,12 +9,13 @@ class testController extends Controller
 {
     public function test(){
         $obj=$this->obj();
-        $response = $obj->purchase()->setBizContent([
+        $response = $obj->purchase([
             'subject'      => 'test',
             'out_trade_no' => date('YmdHis') . mt_rand(1000, 9999),
             'total_amount' => '0.01',
             'product_code' => 'FAST_INSTANT_TRADE_PAY',
         ])->send();
+        $redirectUrl = $response->getRedirectUrl();
     }
     public function obj(){
         $gateway = Omnipay::create('Alipay_LegacyExpress');
