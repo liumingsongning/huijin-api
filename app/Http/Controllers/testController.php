@@ -7,16 +7,16 @@ use Omnipay\Omnipay;
 
 class testController extends Controller
 {
-    public function test(){
+    public function test(Request $request){
 
         $obj=$this->obj();
 
         $response = $obj->purchase([
-            'out_trade_no' => date('YmdHis').mt_rand(1000,9999),
+            'out_trade_no' => $request->out_trade_no,
             'subject'      => 'test',
-            'total_fee'    => '0.01',
+            'total_fee'    => $request->total_fee,
         ])->send();
-        // dd($response);
+        
         $response->redirect();;
     }
     public function obj(){
