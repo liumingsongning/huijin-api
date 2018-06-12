@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Redis;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/test', function () {
-    $user=\App\User::create(['phone'=>'66666','name'=>'66666']);;
-});
+Route::get('/test', 'testController@test');
 Route::get('/test1', function () {
     return Redis::get('123456');
 });
