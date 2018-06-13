@@ -40,7 +40,7 @@ class SersocialiteController extends Controller
 
                 } else {
                    
-                    return redirect()->away('http://test.huijinjiu.com:8080/bind?type=qq&oauth_id=' . $user->uid);
+                    return redirect()->away('http://test.huijinjiu.com:8080/bind?type=qq&oauth_id=' . $user->id);
 
                 }
 
