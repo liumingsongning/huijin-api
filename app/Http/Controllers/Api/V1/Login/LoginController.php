@@ -191,8 +191,8 @@ class LoginController extends BaseController
                         $qq->uid=$user->id;
                         $saved=$qq->save();
 
-                        if($saved){
-                            return $this->error('500','关联qq用户失败');
+                        if(!$saved){
+                            return $this->error('422','关联用户失败');
                         }
 
                     }else{
