@@ -106,15 +106,16 @@ class LoginController extends BaseController
     {
         $phone=$request->phone;
         // // Hash::make('password')
-        // if ($this->checkCode($request->phone, $request->code)) {
-            $user = \App\User::where('phone',$phone)->first();
-            // if(!$user){
-            //     $user=\App\User::create(['phone'=>$phone,'name'=>$phone]);
-            // }   
+        if ($this->checkCode($request->phone, $request->code)) {
+            $user = \App\User::with('qq_user')->where('phone',$phone)->first();
+            if(!$user){
+                $newUser=\App\User::create(['phone'=>$phone,'name'=>$phone]);
+                $user = \App\User::with('qq_user')->where('id',$newUser->id)->first();
+            }   
             return $this->response->array(['token' =>JWTAuth::fromUser($user),'user'=>$user]);
-        // } else {
-        //     $this->error('403', '验证码不正确');
-        // };
+        } else {
+            $this->error('403', '验证码不正确');
+        };
     }
     public function index()
     {
@@ -179,7 +180,7 @@ class LoginController extends BaseController
         $oauth_id=$request->oauth_id;
         // Hash::make('password')
         if ($this->checkCode($request->phone, $request->code)) {
-            $user = \App\User::where('phone',$phone)->first();
+            $user = \App\User::with('qq_user')->where('phone',$phone)->first();
             if(!$user){
                 $user=\App\User::create(['phone'=>$phone,'name'=>$phone]);
             }   

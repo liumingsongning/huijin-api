@@ -42,4 +42,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return [];
     }
+
+    public function qq_user(){
+        return $this->hasOne('App\Models\qq_user','uid','id');
+    }
 }

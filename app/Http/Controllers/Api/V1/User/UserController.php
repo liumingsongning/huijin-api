@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\BaseController;
 class UserController extends BaseController
 {
     public function userinfo(Request $request){
-        return $this->response->array(['user'=>$request->user()]);
+        $user=\App\User::with('qq_user')->where('id',$request->user()->id)->first();
+        return $this->response->array(['user'=>$user]);
     }
 }
