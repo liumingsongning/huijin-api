@@ -135,5 +135,81 @@ class LoginController extends BaseController
         // $token = JWTAuth::fromUser($user);
         // return $token;
     }
+      /**
+     * @api {post} /phonebind phonebind
+     * @apiName phonebind
+     * @apiGroup Login
+     *
+     * @apiParam {string} phone User phone.
+     * @apiParam {string} code code
+     * @apiParam {string} type oauth type.
+     * @apiParam {string} oauth_id oauth oauth_id
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "token": "$token"
+     *     }
+     *
+     * @apiError AccessDenied The phone of the User was error.
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 403 Access Denied
+     *     {
+     *       "message": "验证码不正确",
+     *       "status_code": 403,
+     *     }
+     * or
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 500 Access Denied
+     *     {
+     *       "message": "关联qq用户失败",
+     *       "status_code": 500,
+     *     }
+     * or
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 422 Access Denied
+     *     {
+     *       "message": "未查到该qq用户",
+     *       "status_code": 422,
+     *     }
+     */
+    public function phonebind(Request $request){
+        $phone=$request->phone;
+        $oauth_id=$request->oauth_id;
+        // Hash::make('password')
+        if ($this->checkCode($request->phone, $request->code)) {
+            $user = \App\User::where('phone',$phone)->first();
+            if(!$user){
+                $user=\App\User::create(['phone'=>$phone,'name'=>$phone]);
+            }   
+            switch ($request->type) {
+                case 'qq':
+                    $qq=\App\Models\qq_users::where('qq_id',$oauth_id)->first();
+                    if($qq){
+
+                        $qq->uid=$user->id;
+                        $saved=$qq->save();
+
+                        if($saved){
+                            return $this->error('500','关联qq用户失败');
+                        }
+
+                    }else{
+                        return $this->error('422','未查到该qq用户');
+                    }
+                    break;
+                
+                default:
+                    # code...
+                    break;
+            }
+            
+           
+            return $this->response->array(['token' =>JWTAuth::fromUser($user),'user'=>$user]);
+        } else {
+            $this->error('403', '验证码不正确');
+        };
+    }
 
 }

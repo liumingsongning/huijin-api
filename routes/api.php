@@ -10,6 +10,7 @@ $api->version('v1', function ($api) {
             $api->post('login','LoginController@login');
             $api->post('sendcode','LoginController@sendPhoneCode');
             $api->post('checkcaptcha','LoginController@checkcaptcha');
+            $api->post('phonebind','LoginController@phonebind');
         });
         $api->group(['namespace'=>'\Goods'],function($api){
             $api->resource('goods','GoodsController');
