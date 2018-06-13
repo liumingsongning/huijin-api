@@ -39,8 +39,8 @@ class SersocialiteController extends Controller
                     return redirect()->away('http://test.huijinjiu.com:8080/find_user?token=' . JWTAuth::fromUser($login_user));
 
                 } else {
-                    dd($qq);
-                    return redirect()->away('http://test.huijinjiu.com:8080/bind?type=qq&oauth_id=' . $qq->uid);
+                   
+                    return redirect()->away('http://test.huijinjiu.com:8080/bind?type=qq&oauth_id=' . $user->uid);
 
                 }
 
@@ -50,7 +50,7 @@ class SersocialiteController extends Controller
                 $qq_user['qq_id'] = $user->id;
                 $model->fill($qq_user);
                 $model->save($qq_user);
-                dd($user);
+               
                 return redirect()->away('http://test.huijinjiu.com:8080/bind?type=qq&qq_id=' . $user->id);
             }
         }
