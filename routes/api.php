@@ -32,6 +32,10 @@ $api->version('v1', function ($api) {
                 $api->post('order/remove','OrderController@remove');
                 $api->post('order/clear','OrderController@clear');
             });
+
+            $api->group(['namespace'=>'\User'],function($api){
+                $api->get('userinfo','UserController@userinfo');
+            });
            
             $api->resource('address','Address\AddressController');
            

@@ -105,16 +105,16 @@ class LoginController extends BaseController
     public function login(Request $request)
     {
         $phone=$request->phone;
-        // Hash::make('password')
-        if ($this->checkCode($request->phone, $request->code)) {
+        // // Hash::make('password')
+        // if ($this->checkCode($request->phone, $request->code)) {
             $user = \App\User::where('phone',$phone)->first();
-            if(!$user){
-                $user=\App\User::create(['phone'=>$phone,'name'=>$phone]);
-            }   
+            // if(!$user){
+            //     $user=\App\User::create(['phone'=>$phone,'name'=>$phone]);
+            // }   
             return $this->response->array(['token' =>JWTAuth::fromUser($user),'user'=>$user]);
-        } else {
-            $this->error('403', '验证码不正确');
-        };
+        // } else {
+        //     $this->error('403', '验证码不正确');
+        // };
     }
     public function index()
     {
