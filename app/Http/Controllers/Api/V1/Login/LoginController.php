@@ -185,7 +185,7 @@ class LoginController extends BaseController
             }   
             switch ($request->type) {
                 case 'qq':
-                    $qq=\App\Models\qq_users::where('qq_id',$oauth_id)->first();
+                    $qq=\App\Models\qq_user::where('qq_id',$oauth_id)->first();
                     if($qq){
 
                         $qq->uid=$user->id;
