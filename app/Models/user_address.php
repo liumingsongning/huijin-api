@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class user_address extends Model
 {
     protected $fillable=[
+      'user_id',
       'consignee',
       'email',
       'country', 
