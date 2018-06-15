@@ -77,7 +77,9 @@ class AddressController extends BaseController
     public function store(Request $request)
     {
         $model=new \App\Models\user_address;
-        $model->fill($request->all());
+        $data=$request->all();
+        $data['user_id']=$this->uid;
+        $model->fill($data);
         $create=$model->save();
         if($create){
             return $this->response->array(['address'=>$model]);
@@ -103,11 +105,10 @@ class AddressController extends BaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
-        $model=new \App\Models\user_address;
-        $model = $model->find($id);
-        $model->fill($this->request->all());
+        $model = $this->model->find($id);
+        $model->fill($request->all());
         $update=$model->save();
         if($update){
             return $this->response->array(['address'=>$model]);
@@ -157,8 +158,7 @@ class AddressController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $model=new \App\Models\user_address;
-        $model = $model->find($id);
+        $model = $this->model->find($id);
         $model->fill($request->all());
         $update=$model->save();
         if($update){
@@ -196,8 +196,7 @@ class AddressController extends BaseController
      */
     public function destroy($id)
     {
-        $model=new \App\Models\user_address;
-        $model = $model->find($id);
+        $model = $this->model->find($id);
         $data=$model->delete();
         if($data){
             return $this->response->array(['success'=>'1']);
