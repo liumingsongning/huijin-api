@@ -107,7 +107,7 @@ class AddressController extends BaseController
      */
     public function edit(Request $request,$id)
     {
-        $model = $this->model->find($id);
+        $model = \App\Models\user_address::where('user_id',$this->uid)->where('id',$id)->first();
         $model->fill($request->all());
         $update=$model->save();
         if($update){
@@ -158,7 +158,7 @@ class AddressController extends BaseController
      */
     public function update(Request $request, $id)
     {
-        $model = $this->model->find($id);
+        $model = \App\Models\user_address::where('user_id',$this->uid)->where('id',$id)->first();
         $model->fill($request->all());
         $update=$model->save();
         if($update){
@@ -196,7 +196,8 @@ class AddressController extends BaseController
      */
     public function destroy($id)
     {
-        $model = $this->model->find($id);
+        // dd($this->model);
+        $model = \App\Models\user_address::where('user_id',$this->uid)->where('id',$id)->first();
         $data=$model->delete();
         if($data){
             return $this->response->array(['success'=>'1']);
