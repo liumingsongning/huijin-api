@@ -279,4 +279,16 @@ class ShoppingCartController extends BaseController
         }
         return $call;
     }
+    public function test(Request $request){
+        $goods_amount=0;
+    
+        foreach ($request->rowIds as $key => $value) {
+            Cart::restore($this->uid);
+            $goods_amount+=Cart::get($value)->subtotal;
+            Cart::store($this->uid); 
+        }
+
+        dd($goods_amount);
+
+    }
 }

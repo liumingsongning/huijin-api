@@ -809,5 +809,192 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Login/LoginController.php",
     "groupTitle": "Login"
+  },
+  {
+    "type": "post",
+    "url": "/order/add",
+    "title": "add order",
+    "name": "add_order",
+    "group": "Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "consignee",
+            "description": "<p>收件人.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "email",
+            "description": "<p>邮件地址</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "country",
+            "description": "<p>国家码.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "province",
+            "description": "<p>省码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "city",
+            "description": "<p>城市码.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "district",
+            "description": "<p>地区码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "address",
+            "description": "<p>地址全文.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "zipcode",
+            "description": "<p>邮政编码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "tel",
+            "description": "<p>座机</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "mobile",
+            "description": "<p>手机</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "sign_building",
+            "description": "<p>标志建筑</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "best_time",
+            "description": "<p>最佳送货时间</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "arr",
+            "optional": false,
+            "field": "rowIds",
+            "description": "<p>rowIds 商品id.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "pay_id",
+            "description": "<p>pay_id 支付宝是1，微信扫码支付是6，线下支付是8.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "need_inv",
+            "description": "<p>是否需要发票，1是需要，0是不需要</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "inv_type",
+            "description": "<p>发票样式 '增值税专用发票(一般纳税人)' 或者 '普通发票'.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "inv_payee",
+            "description": "<p>发票抬头</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "inv_content",
+            "description": "<p>发票内容.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "referer",
+            "description": "<p>'pc站'</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"token\": \"$token\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "AccessDenied",
+            "description": "<p>The phone of the User was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 403 Access Denied\n    {\n      \"message\": \"验证码不正确\",\n      \"status_code\": 403,\n    }\nor",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "    HTTP/1.1 500 Access Denied\n    {\n      \"message\": \"关联qq用户失败\",\n      \"status_code\": 500,\n    }\nor",
+          "type": "json"
+        },
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 422 Access Denied\n{\n  \"message\": \"未查到该qq用户\",\n  \"status_code\": 422,\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Order/OrderController.php",
+    "groupTitle": "Order"
   }
 ] });
