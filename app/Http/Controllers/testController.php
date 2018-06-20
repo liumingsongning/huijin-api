@@ -8,6 +8,9 @@ use Omnipay\Omnipay;
 class testController extends Controller
 {
     public function test(Request $request){
+        // ini_set('date.timezone','PRC');
+        // dd(4535);
+        
         dd(date("Y-m-d H:i:s"));
         $obj=$this->obj();
 
