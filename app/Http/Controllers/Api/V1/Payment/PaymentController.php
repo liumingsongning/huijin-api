@@ -52,7 +52,7 @@ class PaymentController extends Controller
              */
             $response = $request->send();
             Log::error('测试return');
-            Log::error($response->getData()['trade_no']);
+            Log::error($response->getData());
             if ($response->isPaid()) {
                 
                 /**
@@ -77,14 +77,14 @@ class PaymentController extends Controller
        
         $request = $this->getAlipayObj()->completePurchase();
         $request->setParams($_REQUEST);
-        Log::error('测试notify');
-        Log::error($request);
+       
         try {
             /**
              * @var AopTradeAppPayResponse $response
              */
             $response = $request->send();
-
+            Log::error('测试notify');
+            Log::error($response->getData());
             if ($response->isPaid()) {
                 /**
                  * Payment is successful
