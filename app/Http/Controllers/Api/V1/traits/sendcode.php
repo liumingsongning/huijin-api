@@ -14,7 +14,7 @@ trait sendcode
         $response = $client->request('post',
             $url,
             ['auth' => ['api', config('services.luosimao.luosimao_sms_key')],
-                'form_params' => ['mobile' => $phone, 'message' => '验证码：'.$code.'【铁壳测试】']]
+                'form_params' => ['mobile' => $phone, 'message' => '验证码：'.$code.'【汇金酒庄】']]
         );
         $data = json_decode($response->getBody()->getContents());
      
