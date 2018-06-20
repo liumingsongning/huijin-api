@@ -1102,8 +1102,8 @@ define({ "api": [
             "group": "Parameter",
             "type": "string",
             "optional": false,
-            "field": "consignee",
-            "description": "<p>收件人.</p>"
+            "field": "id",
+            "description": "<p>order id.</p>"
           }
         ]
       }

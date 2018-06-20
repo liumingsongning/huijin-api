@@ -120,7 +120,7 @@ class OrderController extends BaseController
      * @apiName delete order
      * @apiGroup Order
      *
-     * @apiParam {string} consignee 收件人.
+     * @apiParam {string} id  order id.
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
