@@ -8,7 +8,7 @@ use Omnipay\Omnipay;
 class testController extends Controller
 {
     public function test(Request $request){
-
+        dd(date("Y-m-d H:i:s"));
         $obj=$this->obj();
 
         $response = $obj->purchase([
