@@ -23,17 +23,20 @@ class PaymentController extends Controller
      */
     public function alipay(Request $request)
     {
-        $order_id = $request->order_id;
-        $order = \App\Models\order_infos::where('id', $id)->first();
-        if (!$order) {
-            return $this->error('404', '未查询到该订单');
-        }
+        // $order_id = $request->order_id;
+        // $order = \App\Models\order_infos::where('id', $id)->first();
+        // if (!$order) {
+        //     return $this->error('404', '未查询到该订单');
+        // }
 
         $obj = $this->getAlipayObj();
         $response = $obj->purchase([
-            'out_trade_no' => $order->order_id,
+            // 'out_trade_no' => $order->order_id,
+            // 'subject' => '汇金酒业',
+            // 'total_fee' => $order->order_amount,
+            'out_trade_no' => $request->sn,
             'subject' => '汇金酒业',
-            'total_fee' => $order->order_amount,
+            'total_fee' => 0.01,
         ])->send();
 
         $response->redirect();
