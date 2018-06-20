@@ -4,22 +4,42 @@ namespace App\Http\Controllers\Api\V1\Order;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Http\Controllers\Api\V1\traits\order;
-use Illuminate\Http\Request;
-use Illuminate\Database\QueryException;
 use Cart;
 use DB;
+use Illuminate\Database\QueryException;
+use Illuminate\Http\Request;
 
 class OrderController extends BaseController
 {
     use order;
     /**
-     * Display a listing of the resource.
+     * @api {get} /order   order list
+     * @apiGroup Order
+     * @apiParam {string} page page.
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "order": "$data"
+     *     }
      *
-     * @return \Illuminate\Http\Response
+     * @apiError AccessDenied The phone of the User was error.
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 404 Not Find
+     *     {
+     *       "message": "404 Not Found",
+     *       "status_code": 404
+     *     }
      */
     public function index()
     {
-        //
+        $model = new \App\Models\order_info;
+        $data=$model::with('order_goods')->where('user_id', $this->uid)->simplePaginate(15);
+        if(!Empty($data)){
+            return $this->response->array(['orders'=>$data]);
+        }else{
+            $this->error('404', '还没有数据');
+        }
     }
 
     /**
@@ -44,14 +64,33 @@ class OrderController extends BaseController
     }
 
     /**
-     * Display the specified resource.
+     * @api {get} /order/:id   order show
+     * @apiGroup Order
+     * @apiParam {string} id order id.
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "order": "$data"
+     *     }
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @apiError AccessDenied The phone of the User was error.
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 404 Not Find
+     *     {
+     *       "message": "404 Not Found",
+     *       "status_code": 404
+     *     }
      */
     public function show($id)
     {
-        //
+        $model = new \App\Models\order_info;
+        $data = $model::with('order_goods')->where('id', $id)->first();
+        if ($data) {
+            return $this->response->array($data);
+        } else {
+            throw $this->error('404', '未发现该订单');
+        }
     }
 
     /**
@@ -76,23 +115,58 @@ class OrderController extends BaseController
     {
         //
     }
-
     /**
-     * Remove the specified resource from storage.
+     * @api {delete} /order/:id delete order
+     * @apiName delete order
+     * @apiGroup Order
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @apiParam {string} consignee 收件人.
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "success": "1"
+     *     }
+     *
+     * @apiError AccessDenied The phone of the User was error.
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 422 Access Denied
+     *     {
+     *       "message": 删除订单失败",
+     *       "status_code": 422,
+     *     }
      */
     public function destroy($id)
     {
-        //
+        $model = new \App\Models\order_info;
+        $order_goods_model = new \App\Models\order_goods;
+
+        DB::beginTransaction();
+
+        try {
+            $order = $model::where('user_id', $this->uid)->where('id', $id)->first();
+
+            $order_goods_model::where('order_id', $order->order_sn)->delete();
+
+            $order->delete();
+
+            DB::commit();
+        } catch (QueryException $ex) {
+
+            DB::rollback();
+            return $this->error('422', '删除订单失败');
+        }
+
+        return $this->response->array(['success' => 1]);
+
     }
-     /**
+    /**
      * @api {post} /order/add add order
      * @apiName add order
      * @apiGroup Order
      *
-     * 
+     *
      * @apiParam {string} consignee 收件人.
      * @apiParam {string} email 邮件地址
      * @apiParam {string} country 国家码.
@@ -116,134 +190,117 @@ class OrderController extends BaseController
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
      *     {
-     *       "token": "$token"
+     *       "order": "添加的订单详情"
      *     }
      *
      * @apiError AccessDenied The phone of the User was error.
      *
      * @apiErrorExample Error-Response:
-     *     HTTP/1.1 403 Access Denied
-     *     {
-     *       "message": "验证码不正确",
-     *       "status_code": 403,
-     *     }
-     * or
-     * @apiErrorExample Error-Response:
-     *     HTTP/1.1 500 Access Denied
-     *     {
-     *       "message": "关联qq用户失败",
-     *       "status_code": 500,
-     *     }
-     * or
-     * @apiErrorExample Error-Response:
      *     HTTP/1.1 422 Access Denied
      *     {
-     *       "message": "未查到该qq用户",
+     *       "message": "订单添加失败",
      *       "status_code": 422,
      *     }
      */
     public function add(Request $request)
     {
-        $model=new \App\Models\order_info;
-        
+        $model = new \App\Models\order_info;
 
-        $order=$request->all();
-        $order['user_id']=$this->uid;
-        $order['add_time']=time();
-        $order['order_status']=OS_UNCONFIRMED;
-        $order['shipping_status']=SS_UNSHIPPED;
-        $order['pay_status']=PS_UNPAYED;
+        $order = $request->all();
+        $order['user_id'] = $this->uid;
+        $order['add_time'] = time();
+        $order['order_status'] = OS_UNCONFIRMED;
+        $order['shipping_status'] = SS_UNSHIPPED;
+        $order['pay_status'] = PS_UNPAYED;
         $sn = $order['order_sn'] = $this->get_order_sn();
 
-        $rowIds=$request->rowIds;
+        $rowIds = $request->rowIds;
 
-        $goods_amount=0;
+        $goods_amount = 0;
 
-        foreach ($rowIds as  $value) {
+        foreach ($rowIds as $value) {
 
             Cart::restore($this->uid);
-            $goods_amount+=Cart::get($value)->subtotal;
-            Cart::store($this->uid); 
+            $goods_amount += Cart::get($value)->subtotal;
+            Cart::store($this->uid);
 
         }
 
-        $order['goods_amount']=$order['order_amount']=$goods_amount;
+        $order['goods_amount'] = $order['order_amount'] = $goods_amount;
 
         unset($order['rowIds']);
 
         DB::beginTransaction();
 
         try {
-            $create=$model::create($order);
-            $this->addOrderGoods($rowIds,$order['order_sn']);
+            $create = $model::create($order);
+            $this->addOrderGoods($rowIds, $order['order_sn']);
 
             DB::commit();
-        }catch(QueryException $ex) {
+        } catch (QueryException $ex) {
             DB::rollback();
-            dd($ex);
-            return $this->response->array(['status' => 'error', 'error_msg' => 'Failed, please contact supervisor']);
+            return $this->error('422', '订单添加失败');
         }
-       
 
-        
-        return $this->response->array(['order'=>$model]);
-     
+        return $this->response->array(['order' => $model]);
+
     }
-    public function addOrderGoods($rowIds,$id){
-        $order_goods_model=new \App\Models\order_goods;
+    public function addOrderGoods($rowIds, $id)
+    {
+        $order_goods_model = new \App\Models\order_goods;
 
-        foreach ($rowIds as  $value) {
+        foreach ($rowIds as $value) {
 
             Cart::restore($this->uid);
-            $cart=Cart::get($value);
-            Cart::store($this->uid); 
+            $cart = Cart::get($value);
+            Cart::store($this->uid);
 
-            $model=$cart->model;
+            $model = $cart->model;
 
-            $create['order_id']=$id;
-            $create['goods_id']=$model->id;
-            $create['goods_name']=$model->goods_name;
-            $create['goods_sn']=$model->goods_sn;
-            $create['goods_number']=$cart->qty;
-            $create['goods_price']=$model->goods_price;
-            $create['market_price']=$model->market_price;
+            $create['order_id'] = $id;
+            $create['goods_id'] = $model->id;
+            $create['goods_name'] = $model->goods_name;
+            $create['goods_sn'] = $model->goods_sn;
+            $create['goods_number'] = $cart->qty;
+            $create['goods_price'] = $model->goods_price;
+            $create['market_price'] = $model->market_price;
             $order_goods_model::create($create);
 
         }
     }
-            // $order = array(
-        //     // 'consignee'.
-        //     // 'email' 邮件地址
-        //     // 'country' 国家码.
-        //     // 'province' 省码
-        //     // 'city' 城市码.
-        //     // 'district' 地区码
-        //     // 'address' 地址全文.
-        //     // 'zipcode' 邮政编码
-        //     // 'tel' 座机
-        //     // 'mobile' 手机
-        //     // 'sign_building' 标志建筑
-        //     // 'best_time' 最佳送货时间
-        //     // 'shipping_id' => $request->shipping_id,
-        //     // 'pay_id' => $request->pay_id,
-        //     // 'pack_id' => $request->has('pack_id') ? $request->has('pack_id') : 0,
-        //     // 'card_id' => $request->has('card_id') ? $request->has('card_id') : 0,
-        //     // 'card_message' => '',
-        //     // 'surplus' => $request->has('surplus') ? $request->has('surplus') : 0.00,
-        //     // 'integral' => $request->has('integral') ? $request->has('integral') : 0,
-        //     // 'bonus_id' => $request->has('bonus_id') ? $request->has('bonus_id') : 0,
-        //     // 'need_inv' => $request->need_inv ? 0 : 1,
-        //     // 'inv_type' => $request->inv_typ?$request->inv_typ:'',
-        //     // 'inv_payee' => $request->inv_payee?$request->inv_payee:'',
-        //     // 'inv_content' => $request->inv_content?$request->inv_content:'',
-        //     // 'postscript' => $request->postscript?$request->postscript:'',
-        //     // 'how_oos' => '',
-        //     // 'need_insure' => 0,
-        //     'user_id' => $this->uid,
-        //     'add_time' => time(),
-        //     'order_status' => OS_UNCONFIRMED,
-        //     'shipping_status' => SS_UNSHIPPED,
-        //     'pay_status' => PS_UNPAYED,
-        //     // 'agency_id' => $request->agency_id,
-        // );
+    // $order = array(
+    //     // 'consignee'.
+    //     // 'email' 邮件地址
+    //     // 'country' 国家码.
+    //     // 'province' 省码
+    //     // 'city' 城市码.
+    //     // 'district' 地区码
+    //     // 'address' 地址全文.
+    //     // 'zipcode' 邮政编码
+    //     // 'tel' 座机
+    //     // 'mobile' 手机
+    //     // 'sign_building' 标志建筑
+    //     // 'best_time' 最佳送货时间
+    //     // 'shipping_id' => $request->shipping_id,
+    //     // 'pay_id' => $request->pay_id,
+    //     // 'pack_id' => $request->has('pack_id') ? $request->has('pack_id') : 0,
+    //     // 'card_id' => $request->has('card_id') ? $request->has('card_id') : 0,
+    //     // 'card_message' => '',
+    //     // 'surplus' => $request->has('surplus') ? $request->has('surplus') : 0.00,
+    //     // 'integral' => $request->has('integral') ? $request->has('integral') : 0,
+    //     // 'bonus_id' => $request->has('bonus_id') ? $request->has('bonus_id') : 0,
+    //     // 'need_inv' => $request->need_inv ? 0 : 1,
+    //     // 'inv_type' => $request->inv_typ?$request->inv_typ:'',
+    //     // 'inv_payee' => $request->inv_payee?$request->inv_payee:'',
+    //     // 'inv_content' => $request->inv_content?$request->inv_content:'',
+    //     // 'postscript' => $request->postscript?$request->postscript:'',
+    //     // 'how_oos' => '',
+    //     // 'need_insure' => 0,
+    //     'user_id' => $this->uid,
+    //     'add_time' => time(),
+    //     'order_status' => OS_UNCONFIRMED,
+    //     'shipping_status' => SS_UNSHIPPED,
+    //     'pay_status' => PS_UNPAYED,
+    //     // 'agency_id' => $request->agency_id,
+    // );
 }

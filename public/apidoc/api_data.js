@@ -811,6 +811,108 @@ define({ "api": [
     "groupTitle": "Login"
   },
   {
+    "type": "get",
+    "url": "/order",
+    "title": "order list",
+    "group": "Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "page",
+            "description": "<p>page.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"order\": \"$data\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "AccessDenied",
+            "description": "<p>The phone of the User was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Find\n{\n  \"message\": \"404 Not Found\",\n  \"status_code\": 404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Order/OrderController.php",
+    "groupTitle": "Order",
+    "name": "GetOrder"
+  },
+  {
+    "type": "get",
+    "url": "/order/:id",
+    "title": "order show",
+    "group": "Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "id",
+            "description": "<p>order id.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"order\": \"$data\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "AccessDenied",
+            "description": "<p>The phone of the User was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Find\n{\n  \"message\": \"404 Not Found\",\n  \"status_code\": 404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Order/OrderController.php",
+    "groupTitle": "Order",
+    "name": "GetOrderId"
+  },
+  {
     "type": "post",
     "url": "/order/add",
     "title": "add order",
@@ -959,7 +1061,7 @@ define({ "api": [
       "examples": [
         {
           "title": "Success-Response:",
-          "content": "HTTP/1.1 200 OK\n{\n  \"token\": \"$token\"\n}",
+          "content": "HTTP/1.1 200 OK\n{\n  \"order\": \"添加的订单详情\"\n}",
           "type": "json"
         }
       ]
@@ -978,17 +1080,58 @@ define({ "api": [
       "examples": [
         {
           "title": "Error-Response:",
-          "content": "    HTTP/1.1 403 Access Denied\n    {\n      \"message\": \"验证码不正确\",\n      \"status_code\": 403,\n    }\nor",
+          "content": "HTTP/1.1 422 Access Denied\n{\n  \"message\": \"订单添加失败\",\n  \"status_code\": 422,\n}",
           "type": "json"
-        },
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Order/OrderController.php",
+    "groupTitle": "Order"
+  },
+  {
+    "type": "delete",
+    "url": "/order/:id",
+    "title": "delete order",
+    "name": "delete_order",
+    "group": "Order",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "consignee",
+            "description": "<p>收件人.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "AccessDenied",
+            "description": "<p>The phone of the User was error.</p>"
+          }
+        ]
+      },
+      "examples": [
         {
           "title": "Error-Response:",
-          "content": "    HTTP/1.1 500 Access Denied\n    {\n      \"message\": \"关联qq用户失败\",\n      \"status_code\": 500,\n    }\nor",
-          "type": "json"
-        },
-        {
-          "title": "Error-Response:",
-          "content": "HTTP/1.1 422 Access Denied\n{\n  \"message\": \"未查到该qq用户\",\n  \"status_code\": 422,\n}",
+          "content": "HTTP/1.1 422 Access Denied\n{\n  \"message\": 删除订单失败\",\n  \"status_code\": 422,\n}",
           "type": "json"
         }
       ]
