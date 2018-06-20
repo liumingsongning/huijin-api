@@ -52,7 +52,7 @@ class PaymentController extends Controller
              */
             $response = $request->send();
             Log::error('测试return');
-            Log::error($response);
+            Log::error($response->getData()['trade_no']);
             if ($response->isPaid()) {
                 
                 /**
