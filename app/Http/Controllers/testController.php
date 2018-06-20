@@ -21,11 +21,11 @@ class testController extends Controller
     }
     public function obj(){
         $gateway = Omnipay::create('Alipay_LegacyExpress');
-        $gateway->setSellerEmail('18610111139@163.com');
-        $gateway->setPartner('2088921244662143');
-        $gateway->setKey('adasu2lj6ydft0wy1jwx87v0oupf6frt');;
-        $gateway->setReturnUrl('https://api.huijinjiu.com/return');
-        $gateway->setNotifyUrl('https://api.huijinjiu.com/notify');
+        $gateway->setSellerEmail(config('alipay.SellerEmail'));
+        $gateway->setPartner(config('alipay.Partner'));
+        $gateway->setKey(config('alipay.Key'));;
+        $gateway->setReturnUrl(config('alipay.ReturnUrl'));
+        $gateway->setNotifyUrl(config('alipay.NotifyUrl'));
         return $gateway;
     }
 }
