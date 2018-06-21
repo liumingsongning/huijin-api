@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Api\V1\Payment;
 
 use App\Http\Controllers\Api\V1\traits\alipay;
+use App\Http\Controllers\Api\V1\traits\payment;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Log;
 
 class PaymentController extends Controller
 {
-    use alipay;
+    use alipay,payment;
     /**
      * @api {get} 域名/alipay?order_id=订单order_id  支付宝支付接口
      * @apiGroup Payment
@@ -23,20 +24,23 @@ class PaymentController extends Controller
      */
     public function alipay(Request $request)
     {
-        // $order_id = $request->order_id;
-        // $order = \App\Models\order_infos::where('id', $id)->first();
-        // if (!$order) {
-        //     return $this->error('404', '未查询到该订单');
-        // }
+        $order_id = $request->order_id;
+        $order = \App\Models\order_infos::where('id', $id)->first();
+
+        $log_id = $this->insert_pay_log($order_id, $order['order_amount'], PAY_ORDER)->id;
+
+        if (!$order) {
+            return $this->error('404', '未查询到该订单');
+        }
 
         $obj = $this->getAlipayObj();
         $response = $obj->purchase([
-            // 'out_trade_no' => $order->order_id,
+            'out_trade_no' => $order->order_id . $log_id,
+            'subject' => $order->order_id,
+            'total_fee' => $order->order_amount,
+            // 'out_trade_no' => $request->sn,
             // 'subject' => '汇金酒业',
-            // 'total_fee' => $order->order_amount,
-            'out_trade_no' => $request->sn,
-            'subject' => '汇金酒业',
-            'total_fee' => 0.01,
+            // 'total_fee' => 0.01,
         ])->send();
 
         $response->redirect();
@@ -51,14 +55,28 @@ class PaymentController extends Controller
              * @var AopTradeAppPayResponse $response
              */
             $response = $request->send();
-            Log::error('测试return');
-            Log::error($response->getData());
+         
+            $data = $response->getData();
+
+            $order_sn = str_replace($data['subject'], '', $data['out_trade_no']);
+            $order_sn = trim(addslashes($order_sn));
+
             if ($response->isPaid()) {
-                
+
                 /**
                  * Payment is successful
                  */
-                die('success'); //The notify response should be 'success' only
+                // echo 'success'; //The notify response should be 'success' only
+
+                if (!$this->check_money($order_sn, $data['total_fee'])) {
+                    return redirect()->away('http://test.huijinjiu.com:8080/paycallback?type=alipay&error=1');
+                }
+
+                $this->order_paid($order_sn);
+
+                return redirect()->away('http://test.huijinjiu.com:8080/paycallback?type=alipay&success=1');
+
+
             } else {
                 /**
                  * Payment is not successful
@@ -74,22 +92,32 @@ class PaymentController extends Controller
     }
     public function alipayNotify()
     {
-       
+
         $request = $this->getAlipayObj()->completePurchase();
         $request->setParams($_REQUEST);
-       
+
         try {
             /**
              * @var AopTradeAppPayResponse $response
              */
             $response = $request->send();
-            Log::error('测试notify');
-            Log::error($response->getData());
+
+            $data = $response->getData();
+
+            $order_sn = str_replace($data['subject'], '', $data['out_trade_no']);
+            $order_sn = trim(addslashes($order_sn));
+          
             if ($response->isPaid()) {
                 /**
                  * Payment is successful
                  */
-                die('success'); //The notify response should be 'success' only
+                echo 'success'; //The notify response should be 'success' only
+                if (!$this->check_money($order_sn, $data['total_fee'])) {
+                    return false;
+                }
+
+                $this->order_paid($order_sn);
+
             } else {
                 /**
                  * Payment is not successful

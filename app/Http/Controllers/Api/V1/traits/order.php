@@ -20,4 +20,21 @@ trait order
         return $sn;
     }
 
+    public function order_action($order_sn, $order_status, $shipping_status, $pay_status, $note = '', $username = null, $place = 0){
+        $order=\App\Models\order_info::where('order_sn',$order_sn)->first();
+
+        $model=new \App\Models\order_action;
+
+        $model->order_id=$order->id;
+        $model->action_user=$username;
+        $model->order_status=$order_status;
+        $model->shipping_status=$shipping_status;
+        $model->pay_status=$pay_status;
+        $model->action_place=$place;
+        $model->action_note=$note;
+        $model->log_time=gmtime();
+
+        $model->save();
+    }
+
 }

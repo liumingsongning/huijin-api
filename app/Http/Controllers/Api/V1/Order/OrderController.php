@@ -185,7 +185,7 @@ class OrderController extends BaseController
      * @apiParam {string} inv_type 发票样式 '增值税专用发票(一般纳税人)' 或者 '普通发票'.
      * @apiParam {string} inv_payee 发票抬头
      * @apiParam {string} inv_content 发票内容.
-     * @apiParam {string} referer 'pc站'
+     * @apiParam {string} referer 'self_site'
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
@@ -212,6 +212,10 @@ class OrderController extends BaseController
         $order['order_status'] = OS_UNCONFIRMED;
         $order['shipping_status'] = SS_UNSHIPPED;
         $order['pay_status'] = PS_UNPAYED;
+        $order['referer'] = config('lang.'.$order['referer']);
+        $order['pay_name'] = $this->getPayName($order['pay_id']);
+        
+        
         $sn = $order['order_sn'] = $this->get_order_sn();
 
         $rowIds = $request->rowIds;
@@ -267,6 +271,9 @@ class OrderController extends BaseController
             $order_goods_model::create($create);
 
         }
+    }
+    private function getPayName($pay_id){
+        return \App\Models\payment::where('id',$pay_id)->first()->pay_name;
     }
     // $order = array(
     //     // 'consignee'.
