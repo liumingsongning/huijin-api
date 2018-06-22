@@ -110,9 +110,9 @@ class ShoppingCartController extends BaseController
 
         try{
 
-            Cart::restore($this->uid);
+            Cart::restore($this->uid.'shopping');
             Cart::add($good)->associate('\App\Models\good');
-            Cart::store($this->uid);
+            Cart::store($this->uid.'shopping');
 
             return $this->response->array(['cart' =>$this->transform(Cart::content())]);
 
@@ -149,10 +149,10 @@ class ShoppingCartController extends BaseController
 
         try{
 
-            Cart::restore($this->uid);
+            Cart::restore($this->uid.'shopping');
             $num=Cart::get($rowId)->qty-1;
             Cart::update($rowId,$num);
-            Cart::store($this->uid);
+            Cart::store($this->uid.'shopping');
 
             return $this->response->array(['cart' =>$this->transform(Cart::content())]);
         }catch (Exception $e){
@@ -183,9 +183,9 @@ class ShoppingCartController extends BaseController
        
         try{
 
-            Cart::restore($this->uid);
+            Cart::restore($this->uid.'shopping');
             Cart::destroy();
-            Cart::store($this->uid);
+            Cart::store($this->uid.'shopping');
 
             return $this->response->array(['cart' =>$this->transform(Cart::content())]);
         }catch (Exception $e){
@@ -218,9 +218,9 @@ class ShoppingCartController extends BaseController
       
         try{
 
-            Cart::restore($this->uid);
+            Cart::restore($this->uid.'shopping');
             Cart::remove($request->rowId);
-            Cart::store($this->uid);
+            Cart::store($this->uid.'shopping');
 
             return $this->response->array(['cart' =>$this->transform(Cart::content())]);
 
@@ -252,9 +252,9 @@ class ShoppingCartController extends BaseController
         // dd($this->uid);
         try{
 
-            Cart::restore($this->uid);
+            Cart::restore($this->uid.'shopping');
             $cart=$this->transform(Cart::content());
-            Cart::store($this->uid);
+            Cart::store($this->uid.'shopping');
             return $this->response->array(['cart' =>$cart]);
 
         }catch (Exception $e){
@@ -310,9 +310,9 @@ class ShoppingCartController extends BaseController
 
         foreach ($rowIds as $value) {
 
-            Cart::restore($this->uid);
+            Cart::restore($this->uid.'shopping');
             $row =Cart::get($value);
-            Cart::store($this->uid);
+            Cart::store($this->uid.'shopping');
 
             $data['rowId']=$row->rowId;
             $data['id']=$row->id;
@@ -327,6 +327,7 @@ class ShoppingCartController extends BaseController
 
             $call[]=$data;
           
+
         }
 
         return  $this->response->array(['cart' =>$data]);
@@ -336,9 +337,9 @@ class ShoppingCartController extends BaseController
         $goods_amount=0;
     
         foreach ($request->rowIds as $key => $value) {
-            Cart::restore($this->uid);
+            Cart::restore($this->uid.'shopping');
             $goods_amount+=Cart::get($value)->subtotal;
-            Cart::store($this->uid); 
+            Cart::store($this->uid.'shopping'); 
         }
 
         dd($goods_amount);

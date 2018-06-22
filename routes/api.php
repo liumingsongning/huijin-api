@@ -17,14 +17,18 @@ $api->version('v1', function ($api) {
         });
         $api->group(['middleware' => 'api.auth'],function($api){
             $api->group(['namespace'=>'\Cart'],function($api){
-                // $api->resource('cart','ShoppingCartController');
-                $api->post('cart/add','ShoppingCartController@add');
-                $api->post('cart/minus','ShoppingCartController@minus');
-                $api->post('cart/remove','ShoppingCartController@remove');
-                $api->post('cart/clear','ShoppingCartController@clear');
-                $api->get('cart/display','ShoppingCartController@display');
-                $api->post('cart/test','ShoppingCartController@test');
-                $api->post('cart/getAssign','ShoppingCartController@getAssign');
+                $api->group(['prefix'=>'cart'],function($api){
+                    $api->post('add','ShoppingCartController@add');
+                    $api->post('minus','ShoppingCartController@minus');
+                    $api->post('remove','ShoppingCartController@remove');
+                    $api->post('clear','ShoppingCartController@clear');
+                    $api->get('display','ShoppingCartController@display');
+                    $api->post('test','ShoppingCartController@test');
+                    $api->get('getAssign','ShoppingCartController@getAssign');
+                });
+                $api->group(['prefix'=>'BuyNowCart'],function($api){
+                    $api->resource('cart','BuyNowCartController');
+                });
             });
 
             $api->group(['namespace'=>'\Order'],function($api){
