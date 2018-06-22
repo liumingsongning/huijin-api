@@ -325,7 +325,7 @@ class ShoppingCartController extends BaseController
             $data['model']=$row->model;
             
 
-            $call[]=$data;
+           $call[]=$data;
           
 
         }

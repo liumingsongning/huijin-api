@@ -18,8 +18,8 @@ class AddressController extends BaseController
      */
     public function index(Request $request)
     {
-        $data=$this->model->simplePaginate(10);
-        if(!isEmpty($data)){
+        $data=\App\Models\user_address::where('user_id',$this->uid)->get();
+        if(!Empty($data)){
             return $this->response->array(['address'=>$data]);
         }else{
             $this->error('404', '还没有数据');
@@ -81,8 +81,9 @@ class AddressController extends BaseController
         $data['user_id']=$this->uid;
         $model->fill($data);
         $create=$model->save();
+        $data=$this->model->get();
         if($create){
-            return $this->response->array(['address'=>$model]);
+            return $this->response->array(['address'=>$data]);
         }else{
             return $this->Error('402','添加失败');
         }
@@ -110,8 +111,9 @@ class AddressController extends BaseController
         $model = \App\Models\user_address::where('user_id',$this->uid)->where('id',$id)->first();
         $model->fill($request->all());
         $update=$model->save();
+        $data=$this->model->get();
         if($update){
-            return $this->response->array(['address'=>$model]);
+            return $this->response->array(['address'=>$data]);
         }else{
             return $this->Error('402','修改失败');
         }
@@ -161,8 +163,9 @@ class AddressController extends BaseController
         $model = \App\Models\user_address::where('user_id',$this->uid)->where('id',$id)->first();
         $model->fill($request->all());
         $update=$model->save();
+        $data=$this->model->get();
         if($update){
-            return $this->response->array(['address'=>$model]);
+            return $this->response->array(['address'=>$data]);
         }else{
             return $this->Error('402','修改失败');
         }
