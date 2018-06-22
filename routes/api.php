@@ -24,6 +24,7 @@ $api->version('v1', function ($api) {
                 $api->post('cart/clear','ShoppingCartController@clear');
                 $api->get('cart/display','ShoppingCartController@display');
                 $api->post('cart/test','ShoppingCartController@test');
+                $api->post('cart/getAssign','ShoppingCartController@getAssign');
             });
 
             $api->group(['namespace'=>'\Order'],function($api){

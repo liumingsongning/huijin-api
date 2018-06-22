@@ -279,6 +279,59 @@ class ShoppingCartController extends BaseController
         }
         return $call;
     }
+
+      /**
+     * @api {get} /cart/getAssign getAssign cart
+     * @apiName getAssign
+     * @apiGroup Cart
+     *
+     * @apiParam {arr} rowIds rowIds 商品id.
+     * 
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "cart": "$cart"
+     *     }
+     *
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 422 Access Denied
+     *     {
+     *       "message": "未查询到该购物车",
+     *       "status_code": 404,
+     *     }
+     */
+
+    public function getAssign(Request $request){
+
+        $rowIds=$request->rowIds;
+
+        $call=[];
+
+        foreach ($rowIds as $value) {
+
+            Cart::restore($this->uid);
+            $row =Cart::get($value);
+            Cart::store($this->uid);
+
+            $data['rowId']=$row->rowId;
+            $data['id']=$row->id;
+            $data['name']=$row->name;
+            $data['qty']=$row->qty;
+            $data['price']=$row->price;
+            $data['options']=$row->options;
+            $data['tax']=$row->tax;
+            $data['subtotal']=$row->subtotal;
+            $data['model']=$row->model;
+            
+
+            $call[]=$data;
+          
+        }
+
+        return  $this->response->array(['cart' =>$data]);
+
+    }
     public function test(Request $request){
         $goods_amount=0;
     
