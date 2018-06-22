@@ -295,6 +295,75 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/BuyNowCart/cart",
+    "title": "add cart",
+    "name": "BuyNowCart_add",
+    "group": "Cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "good_id",
+            "description": "<p>good id.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"cart\": \"$cart\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 422 Access Denied\n{\n  \"message\": \"添加商品失败\",\n  \"status_code\": 422,\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Cart/BuyNowCartController.php",
+    "groupTitle": "Cart"
+  },
+  {
+    "type": "get",
+    "url": "/BuyNowCart/cart",
+    "title": "BuyNowCart get",
+    "name": "BuyNowCart_get",
+    "group": "Cart",
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"cart\": \"$cart\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 422 Access Denied\n{\n  \"message\": \"未查询到该购物车\",\n  \"status_code\": 404,\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Cart/BuyNowCartController.php",
+    "groupTitle": "Cart"
+  },
+  {
+    "type": "post",
     "url": "/cart/add",
     "title": "add cart",
     "name": "addCart",
