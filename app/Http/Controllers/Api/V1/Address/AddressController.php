@@ -76,12 +76,15 @@ class AddressController extends BaseController
      */
     public function store(Request $request)
     {
+        $modelall=\App\Models\user_address::where('user_id',$this->uid);
+
         $model=new \App\Models\user_address;
         $data=$request->all();
         $data['user_id']=$this->uid;
         $model->fill($data);
         $create=$model->save();
-        $data=$this->model->get();
+
+        $data=$modelall->get();
         if($create){
             return $this->response->array(['address'=>$data]);
         }else{
@@ -108,10 +111,13 @@ class AddressController extends BaseController
      */
     public function edit(Request $request,$id)
     {
+        $modelall=\App\Models\user_address::where('user_id',$this->uid);
+
         $model = \App\Models\user_address::where('user_id',$this->uid)->where('id',$id)->first();
         $model->fill($request->all());
         $update=$model->save();
-        $data=$this->model->get();
+
+        $data=$modelall->get();
         if($update){
             return $this->response->array(['address'=>$data]);
         }else{
@@ -160,10 +166,14 @@ class AddressController extends BaseController
      */
     public function update(Request $request, $id)
     {
+        $modelall=\App\Models\user_address::where('user_id',$this->uid);
+
         $model = \App\Models\user_address::where('user_id',$this->uid)->where('id',$id)->first();
         $model->fill($request->all());
         $update=$model->save();
-        $data=$this->model->get();
+
+        $data=$modelall->get();
+        
         if($update){
             return $this->response->array(['address'=>$data]);
         }else{
