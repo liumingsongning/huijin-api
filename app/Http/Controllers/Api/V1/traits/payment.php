@@ -48,7 +48,7 @@ trait payment
                     $order->pay_time=time();
                     $order->save();
                     /* 记录订单操作记录 */
-                    $this->order_action($order_sn, OS_CONFIRMED, SS_UNSHIPPED, $pay_status, $note, config('lang.buyer'));
+                    $this->order_action($order->order_sn, OS_CONFIRMED, SS_UNSHIPPED, $pay_status, $note, config('lang.buyer'));
                     /* 客户付款时给商家发送短信提醒 */
 
                 } elseif ($pay_log->order_type== PAY_SURPLUS) {
