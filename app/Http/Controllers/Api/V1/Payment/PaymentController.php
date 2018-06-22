@@ -26,12 +26,13 @@ class PaymentController extends Controller
     {
         $order_sn = $request->order_sn;
         $order = \App\Models\order_info::where('order_sn', $order_sn)->first();
-
-        $log_id = $this->insert_pay_log($order->id, $order->order_amount, PAY_ORDER)->id;
-
+      
+        
         if (!$order) {
             return $this->error('404', '未查询到该订单');
         }
+    
+        $log_id = $this->insert_pay_log($order->id, $order->order_amount, PAY_ORDER)->id;
 
         $obj = $this->getAlipayObj();
         $response = $obj->purchase([

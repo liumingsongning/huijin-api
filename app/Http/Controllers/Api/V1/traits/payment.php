@@ -13,6 +13,7 @@ trait payment
         $modle->order_type = $type;
         $modle->is_paid = $is_paid;
         $modle->save();
+       
         return $modle;
 
     }
