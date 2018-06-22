@@ -25,7 +25,7 @@ class PaymentController extends Controller
     public function alipay(Request $request)
     {
         $order_id = $request->order_id;
-        $order = \App\Models\order_infos::where('id', $id)->first();
+        $order = \App\Models\order_info::where('id', $id)->first();
 
         $log_id = $this->insert_pay_log($order_id, $order['order_amount'], PAY_ORDER)->id;
 
