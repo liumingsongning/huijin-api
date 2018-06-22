@@ -214,7 +214,7 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "street",
-            "description": "<p>地区码</p>"
+            "description": "<p>街道码</p>"
           },
           {
             "group": "Parameter",
