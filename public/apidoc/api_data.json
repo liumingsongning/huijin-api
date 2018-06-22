@@ -1052,7 +1052,7 @@
             "type": "string",
             "optional": false,
             "field": "referer",
-            "description": "<p>'pc站'</p>"
+            "description": "<p>'self_site'</p>"
           }
         ]
       }
@@ -1139,5 +1139,24 @@
     "version": "0.0.0",
     "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Order/OrderController.php",
     "groupTitle": "Order"
+  },
+  {
+    "type": "get",
+    "url": "域名/alipay?order_sn=订单order_sn",
+    "title": "支付宝支付接口",
+    "group": "Payment",
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 404 Not Find\n{\n  \"message\": \"404 Not Found\",\n  \"status_code\": 404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Payment/PaymentController.php",
+    "groupTitle": "Payment",
+    "name": "GetAlipayOrder_snOrder_sn"
   }
 ]
