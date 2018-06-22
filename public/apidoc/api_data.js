@@ -192,13 +192,6 @@ define({ "api": [
             "group": "Parameter",
             "type": "string",
             "optional": false,
-            "field": "country",
-            "description": "<p>国家码.</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "string",
-            "optional": false,
             "field": "province",
             "description": "<p>省码</p>"
           },
@@ -214,6 +207,13 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "district",
+            "description": "<p>地区码</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "street",
             "description": "<p>地区码</p>"
           },
           {

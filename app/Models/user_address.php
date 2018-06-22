@@ -10,7 +10,7 @@ class user_address extends Model
       'user_id',
       'consignee',
       'email',
-      'country', 
+      'street', 
       'province',
       'city', 
       'district', 
