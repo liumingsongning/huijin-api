@@ -10,6 +10,6 @@ class order_info extends Model
         'id',
     ];
     public function order_goods(){
-        return $this->hasMany('\App\Models\order_goods','order_id','order_sn');
+        return $this->hasMany('\App\Models\order_goods','order_sn','order_sn');
     }
 }

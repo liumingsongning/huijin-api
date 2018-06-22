@@ -12,7 +12,7 @@ class PaymentController extends Controller
 {
     use alipay,payment;
     /**
-     * @api {get} 域名/alipay?order_id=订单order_id  支付宝支付接口
+     * @api {get} 域名/alipay?order_sn=订单order_sn  支付宝支付接口
      * @apiGroup Payment
      *
      * @apiErrorExample Error-Response:
@@ -24,10 +24,10 @@ class PaymentController extends Controller
      */
     public function alipay(Request $request)
     {
-        $order_id = $request->order_id;
-        $order = \App\Models\order_info::where('id', $id)->first();
+        $order_sn = $request->order_sn;
+        $order = \App\Models\order_info::where('order_sn', $order_sn)->first();
 
-        $log_id = $this->insert_pay_log($order_id, $order['order_amount'], PAY_ORDER)->id;
+        $log_id = $this->insert_pay_log($order->id, $order->order_amount, PAY_ORDER)->id;
 
         if (!$order) {
             return $this->error('404', '未查询到该订单');
@@ -35,8 +35,8 @@ class PaymentController extends Controller
 
         $obj = $this->getAlipayObj();
         $response = $obj->purchase([
-            'out_trade_no' => $order->order_id . $log_id,
-            'subject' => $order->order_id,
+            'out_trade_no' => $order->order_sn . $log_id,
+            'subject' => $order->order_sn,
             'total_fee' => $order->order_amount,
             // 'out_trade_no' => $request->sn,
             // 'subject' => '汇金酒业',

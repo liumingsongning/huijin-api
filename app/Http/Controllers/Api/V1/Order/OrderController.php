@@ -147,7 +147,7 @@ class OrderController extends BaseController
         try {
             $order = $model::where('user_id', $this->uid)->where('id', $id)->first();
 
-            $order_goods_model::where('order_id', $order->order_sn)->delete();
+            $order_goods_model::where('order_sn', $order->order_sn)->delete();
 
             $order->delete();
 
@@ -249,7 +249,7 @@ class OrderController extends BaseController
         return $this->response->array(['order' => $model]);
 
     }
-    public function addOrderGoods($rowIds, $id)
+    public function addOrderGoods($rowIds, $sn)
     {
         $order_goods_model = new \App\Models\order_goods;
 
@@ -261,7 +261,7 @@ class OrderController extends BaseController
 
             $model = $cart->model;
 
-            $create['order_id'] = $id;
+            $create['order_sn'] = $sn;
             $create['goods_id'] = $model->id;
             $create['goods_name'] = $model->goods_name;
             $create['goods_sn'] = $model->goods_sn;
