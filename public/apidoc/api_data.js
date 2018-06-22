@@ -296,7 +296,7 @@ define({ "api": [
   {
     "type": "post",
     "url": "/BuyNowCart/cart",
-    "title": "add cart",
+    "title": "BuyNowCart add",
     "name": "BuyNowCart_add",
     "group": "Cart",
     "parameter": {

@@ -57,7 +57,7 @@ class BuyNowCartController extends BaseController
         //
     }
      /**
-     * @api {post} /BuyNowCart/cart add cart
+     * @api {post} /BuyNowCart/cart BuyNowCart add
      * @apiName BuyNowCart add
      * @apiGroup Cart
      *
