@@ -20,7 +20,7 @@ trait payment
 
     public function check_money($log_id, $money)
     {
-        $amount = \App\Models\pay_log('id', $log_id)->first()->order_amount;
+        $amount = \App\Models\pay_log::where('id', $log_id)->first()->order_amount;
         return $money == $amount ? true : false;
     }
 
