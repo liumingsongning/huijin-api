@@ -391,6 +391,47 @@ define({ "api": [
     "groupTitle": "Cart"
   },
   {
+    "type": "get",
+    "url": "/cart/getAssign",
+    "title": "getAssign cart",
+    "name": "getAssign",
+    "group": "Cart",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "arr",
+            "optional": false,
+            "field": "rowIds",
+            "description": "<p>rowIds 商品id.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"cart\": \"$cart\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 422 Access Denied\n{\n  \"message\": \"未查询到该购物车\",\n  \"status_code\": 404,\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Cart/ShoppingCartController.php",
+    "groupTitle": "Cart"
+  },
+  {
     "type": "post",
     "url": "/cart/minus",
     "title": "minus cart",
