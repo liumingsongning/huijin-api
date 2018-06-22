@@ -305,7 +305,7 @@ class ShoppingCartController extends BaseController
     public function getAssign(Request $request){
 
         $rowIds=$request->rowIds;
-
+      
         $call=[];
 
         foreach ($rowIds as $value) {
@@ -330,7 +330,7 @@ class ShoppingCartController extends BaseController
 
         }
 
-        return  $this->response->array(['cart' =>$data]);
+        return  $this->response->array(['cart' =>$call]);
 
     }
     public function test(Request $request){
