@@ -32,7 +32,7 @@ trait order
         $model->pay_status=$pay_status;
         $model->action_place=$place;
         $model->action_note=$note;
-        $model->log_time=gmtime();
+        $model->log_time=time();
 
         $model->save();
     }

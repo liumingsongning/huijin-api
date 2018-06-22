@@ -43,9 +43,9 @@ trait payment
 
                     /* 修改订单状态为已付款 */
                     $order->order_status=OS_CONFIRMED;
-                    $order->confirm_time=gmtime();
+                    $order->confirm_time=time();
                     $order->pay_status=$pay_status;
-                    $order->pay_time=gmtime();
+                    $order->pay_time=time();
                     $order->save();
                     /* 记录订单操作记录 */
                     $this->order_action($order_sn, OS_CONFIRMED, SS_UNSHIPPED, $pay_status, $note, config('lang.buyer'));
