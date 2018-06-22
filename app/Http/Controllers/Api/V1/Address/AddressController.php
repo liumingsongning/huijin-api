@@ -173,7 +173,7 @@ class AddressController extends BaseController
         $update=$model->save();
 
         $data=$modelall->get();
-        
+
         if($update){
             return $this->response->array(['address'=>$data]);
         }else{
@@ -209,11 +209,15 @@ class AddressController extends BaseController
      */
     public function destroy($id)
     {
+        $modelall=\App\Models\user_address::where('user_id',$this->uid);
         // dd($this->model);
         $model = \App\Models\user_address::where('user_id',$this->uid)->where('id',$id)->first();
-        $data=$model->delete();
-        if($data){
-            return $this->response->array(['success'=>'1']);
+        $delete=$model->delete();
+
+        $data=$modelall->get();
+
+        if($delete){
+            return $this->response->array(['address'=>$data]);
         }else{
             return $this->Error('402','删除失败');
         }
