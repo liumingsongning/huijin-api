@@ -84,7 +84,7 @@ class AddressController extends BaseController
         $model->fill($data);
         $create=$model->save();
 
-        $data=$modelall->get();
+        $data=$modelall->where('id','desc')->get();
         if($create){
             return $this->response->array(['address'=>$data]);
         }else{
@@ -117,7 +117,7 @@ class AddressController extends BaseController
         $model->fill($request->all());
         $update=$model->save();
 
-        $data=$modelall->get();
+        $data=$modelall->where('id','desc')->get();
         if($update){
             return $this->response->array(['address'=>$data]);
         }else{
@@ -172,7 +172,7 @@ class AddressController extends BaseController
         $model->fill($request->all());
         $update=$model->save();
 
-        $data=$modelall->get();
+        $data=$modelall->where('id','desc')->get();
 
         if($update){
             return $this->response->array(['address'=>$data]);
@@ -214,7 +214,7 @@ class AddressController extends BaseController
         $model = \App\Models\user_address::where('user_id',$this->uid)->where('id',$id)->first();
         $delete=$model->delete();
 
-        $data=$modelall->get();
+        $data=$modelall->where('id','desc')->get();
 
         if($delete){
             return $this->response->array(['address'=>$data]);
