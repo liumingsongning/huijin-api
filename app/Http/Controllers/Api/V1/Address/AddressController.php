@@ -42,10 +42,10 @@ class AddressController extends BaseController
      *
      * @apiParam {string} consignee 收件人.
      * @apiParam {string} email 邮件地址
-     * @apiParam {string} country 国家码.
      * @apiParam {string} province 省码
      * @apiParam {string} city 城市码.
      * @apiParam {string} district 地区码
+     * @apiParam {string} street 街道码
      * @apiParam {string} address 地址全文.
      * @apiParam {string} zipcode 邮政编码
      * @apiParam {string} tel 座机
