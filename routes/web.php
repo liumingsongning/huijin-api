@@ -16,6 +16,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/test', 'testController@test');
+Route::get('/testAlipay', 'testController@testAlipay');
 Route::get('/test1', function () {
     return Redis::get('123456');
 });

@@ -34,4 +34,16 @@ class testController extends Controller
         $gateway->setNotifyUrl(config('alipay.NotifyUrl'));
         return $gateway;
     }
+
+    public function testAlipay(Request $request){
+        $obj=$this->obj();
+
+        $response = $obj->purchase([
+            'out_trade_no' => $request->out_trade_no,
+            'subject'      => 'test',
+            'total_fee'    => $request->total_fee,
+        ])->send();
+        
+        $response->redirect();;
+    }
 }
