@@ -30,3 +30,7 @@ Route::get('auth/{driver}/callback', 'Auth\SersocialiteController@handleProvider
 Route::get('alipay', '\App\Http\Controllers\Api\V1\Payment\PaymentController@alipay');
 Route::get('return', '\App\Http\Controllers\Api\V1\Payment\PaymentController@alipayReturn');
 Route::get('notify', '\App\Http\Controllers\Api\V1\Payment\PaymentController@aliPaynotify');
+
+
+Route::get('testreturn', 'testController@alipayReturn');
+Route::get('testnotify', 'testController@aliPaynotify');

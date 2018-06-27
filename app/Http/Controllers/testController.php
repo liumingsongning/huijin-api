@@ -27,11 +27,11 @@ class testController extends Controller
     }
     public function obj(){
         $gateway = Omnipay::create('Alipay_LegacyExpress');
-        $gateway->setSellerEmail(config('alipay.SellerEmail'));
-        $gateway->setPartner(config('alipay.Partner'));
-        $gateway->setKey(config('alipay.Key'));;
-        $gateway->setReturnUrl(config('alipay.ReturnUrl'));
-        $gateway->setNotifyUrl(config('alipay.NotifyUrl'));
+        $gateway->setSellerEmail('18610111139@163.com');
+        $gateway->setPartner('2088921244662143');
+        $gateway->setKey('adasu2lj6ydft0wy1jwx87v0oupf6frt');
+        $gateway->setReturnUrl('https://api.huijinjiu.com/testreturn');
+        $gateway->setNotifyUrl('https://api.huijinjiu.com/testnotify');
         return $gateway;
     }
 
@@ -45,5 +45,80 @@ class testController extends Controller
         ])->send();
         
         $response->redirect();;
+    }
+
+
+    public function alipayReturn()
+    {
+        $request = $this->obj()->completePurchase();
+        $request->setParams($_REQUEST);
+
+        try {
+            /**
+             * @var AopTradeAppPayResponse $response
+             */
+            $response = $request->send();
+         
+        
+            if ($response->isPaid()) {
+
+                /**
+                 * Payment is successful
+                 */
+                // echo 'success'; //The notify response should be 'success' only
+
+                echo 'success'; 
+
+
+               
+
+
+            } else {
+                /**
+                 * Payment is not successful
+                 */
+                die('fail'); //The notify response
+            }
+        } catch (Exception $e) {
+            /**
+             * Payment is not successful
+             */
+            die('fail'); //The notify response
+        }
+    }
+    public function alipayNotify()
+    {
+
+        $request = $this->obj()->completePurchase();
+        $request->setParams($_REQUEST);
+
+        try {
+            /**
+             * @var AopTradeAppPayResponse $response
+             */
+            $response = $request->send();
+
+          
+
+          
+            if ($response->isPaid()) {
+                /**
+                 * Payment is successful
+                 */
+                echo 'success'; //The notify response should be 'success' only
+              
+
+            } else {
+                /**
+                 * Payment is not successful
+                 */
+                die('fail'); //The notify response
+            }
+        } catch (Exception $e) {
+            /**
+             * Payment is not successful
+             */
+            die('fail'); //The notify response
+        }
     }
 }
