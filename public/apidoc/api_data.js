@@ -1163,6 +1163,13 @@ define({ "api": [
             "optional": false,
             "field": "referer",
             "description": "<p>'self_site'</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "cart_type",
+            "description": "<p>'shopping'or'buynow'</p>"
           }
         ]
       }
