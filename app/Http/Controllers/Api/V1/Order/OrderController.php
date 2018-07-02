@@ -186,6 +186,7 @@ class OrderController extends BaseController
      * @apiParam {string} inv_payee 发票抬头
      * @apiParam {string} inv_content 发票内容.
      * @apiParam {string} referer 'self_site'
+     * @apiParam {string} cart_type 'shopping'or'buynow'
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
@@ -204,6 +205,10 @@ class OrderController extends BaseController
      */
     public function add(Request $request)
     {
+        $cart_type=$request->cart_type;
+
+
+
         $model = new \App\Models\order_info;
 
         $order = $request->all();
@@ -217,22 +222,23 @@ class OrderController extends BaseController
         
         
         $sn = $order['order_sn'] = $this->get_order_sn();
-
+        
         $rowIds = $request->rowIds;
 
         $goods_amount = 0;
 
         foreach ($rowIds as $value) {
 
-            Cart::restore($this->uid);
+            Cart::restore($this->uid.$cart_type);
             $goods_amount += Cart::get($value)->subtotal;
-            Cart::store($this->uid);
+            Cart::store($this->uid.$cart_type);
 
         }
 
         $order['goods_amount'] = $order['order_amount'] = $goods_amount;
 
         unset($order['rowIds']);
+        unset($order['cart_type']);
 
         DB::beginTransaction();
 
@@ -242,6 +248,7 @@ class OrderController extends BaseController
 
             DB::commit();
         } catch (QueryException $ex) {
+            return $ex;
             DB::rollback();
             return $this->error('422', '订单添加失败');
         }
@@ -255,9 +262,9 @@ class OrderController extends BaseController
 
         foreach ($rowIds as $value) {
 
-            Cart::restore($this->uid);
+            Cart::restore($this->uid.$cart_type);
             $cart = Cart::get($value);
-            Cart::store($this->uid);
+            Cart::store($this->uid.$cart_type);
 
             $model = $cart->model;
 
