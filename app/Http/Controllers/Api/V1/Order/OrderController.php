@@ -253,7 +253,7 @@ class OrderController extends BaseController
             return $this->error('422', '订单添加失败');
         }
 
-        return $this->response->array(['order' => $model]);
+        return $this->response->array(['order' => $create]);
 
     }
     public function addOrderGoods($rowIds, $sn,$cart_type)
