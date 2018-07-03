@@ -12,7 +12,7 @@ class BaseController extends Controller
     protected $uid='123';
     function __construct(Request $request){
         $this->middleware(function ($request, $next) {
-           
+          
             if($request->user()){
                 $this->uid=$request->user()->id;
             }

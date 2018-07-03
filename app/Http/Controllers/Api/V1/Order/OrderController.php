@@ -244,7 +244,7 @@ class OrderController extends BaseController
 
         try {
             $create = $model::create($order);
-            $this->addOrderGoods($rowIds, $order['order_sn']);
+            $this->addOrderGoods($rowIds, $order['order_sn'],$cart_type);
 
             DB::commit();
         } catch (QueryException $ex) {
@@ -256,7 +256,7 @@ class OrderController extends BaseController
         return $this->response->array(['order' => $model]);
 
     }
-    public function addOrderGoods($rowIds, $sn)
+    public function addOrderGoods($rowIds, $sn,$cart_type)
     {
         $order_goods_model = new \App\Models\order_goods;
 
