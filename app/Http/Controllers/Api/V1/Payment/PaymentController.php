@@ -4,11 +4,11 @@ namespace App\Http\Controllers\Api\V1\Payment;
 
 use App\Http\Controllers\Api\V1\traits\alipay;
 use App\Http\Controllers\Api\V1\traits\payment;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
 use Log;
 
-class PaymentController extends Controller
+class PaymentController extends BaseController
 {
     use alipay,payment;
     /**
