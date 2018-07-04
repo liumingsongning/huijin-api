@@ -27,9 +27,9 @@ Route::get('auth/{driver}', 'Auth\SersocialiteController@redirectToProvider');
 Route::get('auth/{driver}/callback', 'Auth\SersocialiteController@handleProviderCallback');
 
 
-Route::get('alipay', '\App\Http\Controllers\Api\V1\Payment\PaymentController@alipay');
-Route::get('return', '\App\Http\Controllers\Api\V1\Payment\PaymentController@alipayReturn');
-Route::get('notify', '\App\Http\Controllers\Api\V1\Payment\PaymentController@aliPaynotify');
+Route::get('alipay', 'PaymentController@alipay');
+Route::get('return', 'PaymentController@alipayReturn');
+Route::get('notify', 'PaymentController@aliPaynotify');
 
 
 Route::get('testreturn', 'testController@alipayReturn');
