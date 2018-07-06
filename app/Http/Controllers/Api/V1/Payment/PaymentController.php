@@ -70,12 +70,12 @@ class PaymentController extends BaseController
                 // echo 'success'; //The notify response should be 'success' only
 
                 if (!$this->check_money($order_sn, $data['total_fee'])) {
-                    return redirect()->away('http://test.huijinjiu.com:8080/paycallback?type=alipay&error=1');
+                    return redirect()->away(config('app.front_url').'/paycallback?type=alipay&error=1');
                 }
 
                 $this->order_paid($order_sn);
 
-                return redirect()->away('http://test.huijinjiu.com:8080/paycallback?type=alipay&success=1');
+                return redirect()->away(config('app.front_url').'/paycallback?type=alipay&success=1');
 
 
             } else {

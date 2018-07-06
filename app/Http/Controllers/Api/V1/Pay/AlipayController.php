@@ -24,7 +24,7 @@ class AlipayController extends Controller
         $gateway = Omnipay::create('Alipay_LegacyExpress');
         $gateway->setSellerEmail('18610111139@163.com');
         $gateway->setPartner('2088921244662143');
-        $gateway->setKey('adasu2lj6ydft0wy1jwx87v0oupf6frt');;
+        $gateway->setKey('adasu2lj6ydft0wy1jwx87v0oupf6frt');
         $gateway->setReturnUrl('https://api.huijinjiu.com/return');
         $gateway->setNotifyUrl('https://api.huijinjiu.com/notify');
         return $gateway;
