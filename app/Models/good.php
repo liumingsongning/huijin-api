@@ -18,4 +18,8 @@ class good extends Model implements Buyable
     public function getBuyablePrice($options = null){
         return $this->market_price;
     }
+
+    public function attrs(){
+        return $this->hasMany('\App\Models\goods_attr','goods_id','id');
+    }
 }

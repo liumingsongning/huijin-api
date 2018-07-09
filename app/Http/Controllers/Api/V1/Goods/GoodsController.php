@@ -72,7 +72,18 @@ class GoodsController extends BaseController
      */
     public function show($id)
     {
-        $data = \App\Models\good::find($id);
+        $data = \App\Models\good::with(['attrs'=>function($query){
+            $query->with('attribute')->orderby('attr_sort');
+        }])->find($id);
+
+        $arr= array();  
+
+        foreach($data->attrs as $value){
+            $arr[$value->attribute->attr_name][]=$value;
+        }
+
+        $data->spe=$arr;
+
         if ($data) {
             return $this->response->array($data);
         } else {
