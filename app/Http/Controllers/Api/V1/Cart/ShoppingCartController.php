@@ -293,7 +293,7 @@ class ShoppingCartController extends BaseController
             $data['subtotal']=$row->subtotal;
             $data['model']=$row->model;
             if($row->options){ 
-               
+                $data['products']=\App\Models\product::where('goods_attr',json_encode($row->options))->first();
                 $data['atts']=\App\Models\goods_attr::with('attribute')->whereIn('id',$row->options)->get();
                
             }
@@ -348,7 +348,7 @@ class ShoppingCartController extends BaseController
             $data['subtotal']=$row->subtotal;
             $data['model']=$row->model;
             if($row->options){ 
-               
+                $data['products']=\App\Models\product::where('goods_attr',json_encode($row->options))->first();
                 $data['atts']=\App\Models\goods_attr::with('attribute')->whereIn('id',$row->options)->get();
                
             }
