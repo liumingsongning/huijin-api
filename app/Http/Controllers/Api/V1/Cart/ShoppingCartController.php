@@ -294,7 +294,7 @@ class ShoppingCartController extends BaseController
             $data['model']=$row->model;
             if($row->options){ 
                
-                $data['atts']=\App\Models\goods_attr::whereIn('id',$row->options)->get();
+                $data['atts']=\App\Models\goods_attr::with('attribute')->whereIn('id',$row->options)->get();
                
             }
             $call[]=$data;
