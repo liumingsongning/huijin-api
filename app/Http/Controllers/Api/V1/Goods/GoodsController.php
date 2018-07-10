@@ -73,7 +73,7 @@ class GoodsController extends BaseController
      */
     public function show($id)
     {
-        $data = \App\Models\good::with(['products', 'goods_type' => function ($query) use ($id) {
+        $data = \App\Models\good::with(['attrs','products', 'goods_type' => function ($query) use ($id) {
             $query->with(['orderAttr' => function ($query) use ($id) {
                 $query->with(['goods_attr' => function ($query) use ($id) {
                     $query->where('goods_id', $id)->orderby('attr_sort');
