@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1\Goods;
-use Illuminate\Http\Request;
+
 use App\Http\Controllers\Api\BaseController;
+use Illuminate\Http\Request;
 
 class GoodsController extends BaseController
 {
@@ -72,22 +73,18 @@ class GoodsController extends BaseController
      */
     public function show($id)
     {
-        $data = \App\Models\good::with(['attrs'=>function($query){
-            $query->with('attribute')->orderby('attr_sort');
-        },'products'])->find($id);
-
-        $arr= array();  
-
-        foreach($data->attrs as $value){
-            $arr[$value->attribute->attr_name][]=$value;
-        }
-
-        $data->spe=$arr;
+        $data = \App\Models\good::with(['products', 'goods_type' => function ($query) use ($id) {
+            $query->with(['orderAttr' => function ($query) use ($id) {
+                $query->with(['goods_attr' => function ($query) use ($id) {
+                    $query->where('goods_id', $id)->orderby('attr_sort');
+                }])->orderby('sort');
+            }]);
+        }])->find($id);
 
         if ($data) {
             return $this->response->array($data);
         } else {
-            throw $this->error('404','未发现该商品');
+            throw $this->error('404', '未发现该商品');
         }
 
     }

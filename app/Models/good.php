@@ -26,4 +26,8 @@ class good extends Model implements Buyable
     public function products(){
         return $this->hasMany('\App\Models\product','goods_id','id');
     }
+
+    public function goods_type(){
+        return $this->hasOne('\App\Models\goods_type','id','goods_type');
+    }
 }
