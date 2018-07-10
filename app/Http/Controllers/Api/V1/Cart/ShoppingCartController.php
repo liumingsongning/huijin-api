@@ -111,7 +111,11 @@ class ShoppingCartController extends BaseController
         try{
 
             Cart::restore($this->uid.'shopping');
-            Cart::add($good)->associate('\App\Models\good');
+            if($request->has('spe')){
+                Cart::add($good,1,$request->spe)->associate('\App\Models\good');
+            }else{
+                Cart::add($good)->associate('\App\Models\good');
+            }
             Cart::store($this->uid.'shopping');
 
             return $this->response->array(['cart' =>$this->transform(Cart::content())]);
@@ -120,6 +124,20 @@ class ShoppingCartController extends BaseController
             return $this->error('422','添加商品失败');
         }
 
+    }
+    public function plus(Request $request){
+        $rowId=$request->rowId;
+        try{
+
+            Cart::restore($this->uid.'shopping');
+            $num=Cart::get($rowId)->qty+1;
+            Cart::update($rowId,$num);
+            Cart::store($this->uid.'shopping');
+
+            return $this->response->array(['cart' =>$this->transform(Cart::content())]);
+        }catch (Exception $e){
+            return $this->error('422','减少商品失败');
+        }
     }
      /**
      * @api {post} /cart/minus minus cart
@@ -274,7 +292,13 @@ class ShoppingCartController extends BaseController
             $data['tax']=$row->tax;
             $data['subtotal']=$row->subtotal;
             $data['model']=$row->model;
+            if($row->options){ 
+               
+                $data['atts']=\App\Models\goods_attr::whereIn('id',$row->options)->get();
+               
+            }
             $call[]=$data;
+           
 
         }
         return $call;
@@ -323,7 +347,11 @@ class ShoppingCartController extends BaseController
             $data['tax']=$row->tax;
             $data['subtotal']=$row->subtotal;
             $data['model']=$row->model;
-            
+            if($row->options){ 
+               
+                $data['atts']=\App\Models\goods_attr::whereIn('id',$row->options)->get();
+               
+            }
 
            $call[]=$data;
           

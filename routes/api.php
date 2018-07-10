@@ -20,6 +20,7 @@ $api->version('v1', function ($api) {
                 $api->group(['prefix'=>'cart'],function($api){
                     $api->post('add','ShoppingCartController@add');
                     $api->post('minus','ShoppingCartController@minus');
+                    $api->post('plus','ShoppingCartController@plus');
                     $api->post('remove','ShoppingCartController@remove');
                     $api->post('clear','ShoppingCartController@clear');
                     $api->get('display','ShoppingCartController@display');
