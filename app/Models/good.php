@@ -22,4 +22,8 @@ class good extends Model implements Buyable
     public function attrs(){
         return $this->hasMany('\App\Models\goods_attr','goods_id','id');
     }
+
+    public function products(){
+        return $this->hasMany('\App\Models\product','goods_id','id');
+    }
 }

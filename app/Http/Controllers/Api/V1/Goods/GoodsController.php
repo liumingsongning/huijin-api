@@ -74,7 +74,7 @@ class GoodsController extends BaseController
     {
         $data = \App\Models\good::with(['attrs'=>function($query){
             $query->with('attribute')->orderby('attr_sort');
-        }])->find($id);
+        },'products'])->find($id);
 
         $arr= array();  
 
