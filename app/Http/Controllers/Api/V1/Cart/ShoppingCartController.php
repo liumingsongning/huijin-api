@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Api\V1\Cart;
 use Cart;
 use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Api\V1\traits\cartTrait;
 
 class ShoppingCartController extends BaseController
 {
+    use cartTrait;
     /**
      * Display a listing of the resource.
      *
@@ -279,31 +281,6 @@ class ShoppingCartController extends BaseController
             return $this->error('404','未查询到该购物车');
         }
     }
-    public function transform($cart){
-        $call=[];
-        foreach($cart as $row){
-           
-            $data['rowId']=$row->rowId;
-            $data['id']=$row->id;
-            $data['name']=$row->name;
-            $data['qty']=$row->qty;
-            $data['price']=$row->price;
-            $data['options']=$row->options;
-            $data['tax']=$row->tax;
-            $data['subtotal']=$row->subtotal;
-            $data['model']=$row->model;
-            if($row->options){ 
-                $data['products']=\App\Models\product::where('goods_attr',json_encode($row->options))->first();
-                $data['atts']=\App\Models\goods_attr::with('attribute')->whereIn('id',$row->options)->get();
-               
-            }
-            $call[]=$data;
-           
-
-        }
-        return $call;
-    }
-
       /**
      * @api {get} /cart/getAssign getAssign cart
      * @apiName getAssign

@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Api\V1\Cart;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Api\BaseController;
+use App\Http\Controllers\Api\V1\traits\cartTrait;
 use Cart;
+use Illuminate\Http\Request;
 
 class BuyNowCartController extends BaseController
 {
-     /**
+    use cartTrait;
+    /**
      * @api {get} /BuyNowCart/cart BuyNowCart get
      * @apiName BuyNowCart get
      * @apiGroup Cart
@@ -35,15 +37,15 @@ class BuyNowCartController extends BaseController
      */
     public function index()
     {
-        try{
+        try {
 
-           Cart::restore($this->uid.'buynow');
-           Cart::store($this->uid.'buynow');
+            Cart::restore($this->uid . 'buynow');
+            Cart::store($this->uid . 'buynow');
 
-            return $this->response->array(['cart' =>$this->transform(Cart::content())]);
+            return $this->response->array(['cart' => $this->transform(Cart::content())]);
 
-        }catch (Exception $e){
-            return $this->error('422','查找商品失败');
+        } catch (Exception $e) {
+            return $this->error('422', '查找商品失败');
         }
     }
 
@@ -56,7 +58,7 @@ class BuyNowCartController extends BaseController
     {
         //
     }
-     /**
+    /**
      * @api {post} /BuyNowCart/cart BuyNowCart add
      * @apiName BuyNowCart add
      * @apiGroup Cart
@@ -85,19 +87,23 @@ class BuyNowCartController extends BaseController
      */
     public function store(Request $request)
     {
-        $good=\App\Models\good::find($request->good_id);
+        $good = \App\Models\good::find($request->good_id);
 
-        try{
+        try {
 
-           Cart::restore($this->uid.'buynow');
+            Cart::restore($this->uid . 'buynow');
             Cart::destroy();
-            Cart::add($good)->associate('\App\Models\good');
-           Cart::store($this->uid.'buynow');
+            if ($request->has('spe')) {
+                Cart::add($good, 1, $request->spe)->associate('\App\Models\good');
+            } else {
+                Cart::add($good)->associate('\App\Models\good');
+            }
+            Cart::store($this->uid . 'buynow');
 
-            return $this->response->array(['cart' =>$this->transform(Cart::content())]);
+            return $this->response->array(['cart' => $this->transform(Cart::content())]);
 
-        }catch (Exception $e){
-            return $this->error('422','添加商品失败');
+        } catch (Exception $e) {
+            return $this->error('422', '添加商品失败');
         }
     }
 
@@ -145,23 +151,4 @@ class BuyNowCartController extends BaseController
     {
         //
     }
-
-    public function transform($cart){
-        $call=[];
-        foreach($cart as $row){
-           
-            $data['rowId']=$row->rowId;
-            $data['id']=$row->id;
-            $data['name']=$row->name;
-            $data['qty']=$row->qty;
-            $data['price']=$row->price;
-            $data['options']=$row->options;
-            $data['tax']=$row->tax;
-            $data['subtotal']=$row->subtotal;
-            $data['model']=$row->model;
-            $call[]=$data;
-
-        }
-        return $call;
-    }               
 }
