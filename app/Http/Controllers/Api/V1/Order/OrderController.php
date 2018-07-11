@@ -273,8 +273,19 @@ class OrderController extends BaseController
             $create['goods_name'] = $model->goods_name;
             $create['goods_sn'] = $model->goods_sn;
             $create['goods_number'] = $cart->qty;
-            $create['goods_price'] = $model->goods_price;
+            $create['goods_price'] = $cart->price;
             $create['market_price'] = $model->market_price;
+            if($cart->options){ 
+                $products=\App\Models\product::where('goods_attr',json_encode($cart->options))->first();
+                $atts=\App\Models\goods_attr::with('attribute')->whereIn('id',$cart->options)->get();
+                $create['product_id']=$products->id;
+                $create['goods_attr_id']=json_encode($cart->options);
+                $goods_attrs='';
+                foreach ($atts as $key => $value) {
+                    $goods_attrs.=$value->attribute->attr_name.':'.$value->attr_value.'    ';
+                }
+                $create['goods_attr']=$goods_attrs;
+            }
             $order_goods_model::create($create);
 
         }
