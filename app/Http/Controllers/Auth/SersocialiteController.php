@@ -37,11 +37,11 @@ class SersocialiteController extends Controller
 
                     $login_user = \App\User::find($qq->uid);
 
-                    return redirect()->away('http://test.huijinjiu.com:8080/find_user?token=' . JWTAuth::fromUser($login_user));
+                    return redirect()->away(config('app.front_url').'/find_user?token=' . JWTAuth::fromUser($login_user));
 
                 } else {
                    
-                    return redirect()->away('http://test.huijinjiu.com:8080/bind?type=qq&oauth_id=' . $user->id);
+                    return redirect()->away(config('app.front_url').'/bind?type=qq&oauth_id=' . $user->id);
 
                 }
 
