@@ -60,3 +60,8 @@ define('CS_AWAIT_PAY',              100); // 待付款：货到付款且已发�
 define('CS_AWAIT_SHIP',             101); // 待发货：货到付款且未发货，非货到付款且已付款且未发货
 
 define('CS_FINISHED',               102); // 已完成：已确认、已付款、已发货
+
+
+/* 帐户明细类型 */
+define('SURPLUS_SAVE',              0); // 为帐户冲值
+define('SURPLUS_RETURN',            1); // 从帐户提款
