@@ -11,6 +11,9 @@ $api->version('v1', function ($api) {
             $api->post('sendcode','LoginController@sendPhoneCode');
             $api->post('checkcaptcha','LoginController@checkcaptcha');
             $api->post('phonebind','LoginController@phonebind');
+            $api->post('checkRepetitionPhone','LoginController@checkRepetitionPhone');
+            $api->post('register','LoginController@register');
+            $api->post('companyRegister','LoginController@companyRegister');
         });
         $api->group(['namespace'=>'\Goods'],function($api){
             $api->resource('goods','GoodsController');
@@ -45,6 +48,11 @@ $api->version('v1', function ($api) {
             });
            
             $api->resource('address','Address\AddressController');
+
+            $api->group(['namespace'=>'\Register'],function($api){
+                $api->get('updateCompanyPassword','RegisterControler@updateCompanyPassword');
+                $api->get('bindCompany','RegisterControler@bindCompany');
+            });
            
         });
     });

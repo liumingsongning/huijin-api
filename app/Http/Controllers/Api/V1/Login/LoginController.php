@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\V1\traits\sendcode;
 use JWTAuth;
 use Lshorz\Luocaptcha\Facades\LCaptcha;
 use Illuminate\Http\Request;
+use Hash;
 
 class LoginController extends BaseController
 {
@@ -117,6 +118,21 @@ class LoginController extends BaseController
             $this->error('403', '验证码不正确');
         };
     }
+    public function nameLogin(){
+        $request->validate([
+            'name' => 'required',
+            'password' => 'required',
+        ]);
+        $name=$request->name;
+        $password=$request->password;
+        
+        $user=\App\User::where('name',$name)->where('password',Hash::make($password))->first();
+        if($user){
+            return $this->response->array(['token' =>JWTAuth::fromUser($user),'user'=>$user]);
+        }else{
+            $this->error('403', '用户名或密码不正确');
+        }
+    }
     public function index()
     {
         // $good=\App\models\good::find(1);
@@ -212,5 +228,110 @@ class LoginController extends BaseController
             $this->error('403', '验证码不正确');
         };
     }
+     /**
+     * @api {post} /checkRepetitionPhone checkRepetitionPhone
+     * @apiName checkRepetitionPhone
+     * @apiGroup Login
+     *
+     * @apiParam {string} phone User phone.
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "repetition": "1未重复手机号，0为不重复"
+     *     }
+     *
+     */
+    public function checkRepetitionPhone(Request $request){
+        $user = \App\User::where('phone',$request->phone)->first();
+        return $this->response->array(['repetition' =>$user?1:0]);
 
+    }
+      /**
+     * @api {post} /register register
+     * @apiName register
+     * @apiGroup Login
+     *
+     * @apiParam {string} phone User phone.
+     * @apiParam {string} code code
+     * @apiParam {string} password password.
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "success": "1"
+     *     }
+     *
+     * @apiError AccessDenied The phone of the User was error.
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 403 Access Denied
+     *     {
+     *       "message": "验证码不正确",
+     *       "status_code": 403,
+     *     }
+     */
+    public function register(Request $request){
+        $request->validate([
+            'phone' => 'phone',
+            'password' => 'required',
+            'code' => 'code',
+        ]);
+        $phone=$request->phone;
+        $password=$request->password;
+        // Hash::make('password')
+        if ($this->checkCode($request->phone, $request->code)) {
+            $user = \App\User::with('qq_user')->where('phone',$phone)->first();
+            if(!$user){
+                $create=\App\User::create(['name'=>$phone,'password'=>Hash::make($password),'phone'=>$phone]);
+            }else{
+                $update=\App\User::update(['password'=>Hash::make($password)]);
+            } 
+            return $this->response->array(['success' =>1]);
+        }else{
+            $this->error('403', '验证码不正确');    
+        }
+    }
+        /**
+     * @api {post} /companyRegister companyRegister
+     * @apiName companyRegister
+     * @apiGroup Login
+     *
+     * @apiParam {string} phone User phone.
+     * @apiParam {string} code code
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "token": "token"
+     *       "user": "user"
+     *     }
+     *
+     * @apiError AccessDenied The phone of the User was error.
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 403 Access Denied
+     *     {
+     *       "message": "验证码不正确",
+     *       "status_code": 403,
+     *     }
+     */
+    public function companyRegister(Request $request){
+        $phone=$request->phone;
+        if ($this->checkCode($phone, $request->code)) {
+            $user = \App\User::where('phone',$phone)->first();
+            if($user){
+                $this->error('422','该手机号已注册');
+            }else{
+                $newUser['phone']=$phone;
+                $newUser['name']=$phone;
+                $create=\App\User::create($newUser);
+                return $this->response->array(['token' =>JWTAuth::fromUser($user),'user'=>$user]);
+            }   
+           
+        } else {
+            $this->error('403', '验证码不正确');
+        };
+    }
+ 
 }

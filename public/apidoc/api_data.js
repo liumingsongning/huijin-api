@@ -731,6 +731,38 @@ define({ "api": [
   },
   {
     "type": "post",
+    "url": "/checkRepetitionPhone",
+    "title": "checkRepetitionPhone",
+    "name": "checkRepetitionPhone",
+    "group": "Login",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>User phone.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"repetition\": \"1未重复手机号，0为不重复\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Login/LoginController.php",
+    "groupTitle": "Login"
+  },
+  {
+    "type": "post",
     "url": "/checkcaptcha",
     "title": "checkcaptcha",
     "name": "checkcaptcha",
@@ -779,6 +811,64 @@ define({ "api": [
         {
           "title": "Error-Response:",
           "content": "HTTP/1.1 400 Access Denied\n{\n  \"message\": \"人机验证失败\",\n  \"status_code\": 400,\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Login/LoginController.php",
+    "groupTitle": "Login"
+  },
+  {
+    "type": "post",
+    "url": "/companyRegister",
+    "title": "companyRegister",
+    "name": "companyRegister",
+    "group": "Login",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>User phone.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "code",
+            "description": "<p>code</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"token\": \"token\"\n  \"user\": \"user\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "AccessDenied",
+            "description": "<p>The phone of the User was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 403 Access Denied\n{\n  \"message\": \"验证码不正确\",\n  \"status_code\": 403,\n}",
           "type": "json"
         }
       ]
@@ -861,6 +951,71 @@ define({ "api": [
         {
           "title": "Error-Response:",
           "content": "HTTP/1.1 422 Access Denied\n{\n  \"message\": \"未查到该qq用户\",\n  \"status_code\": 422,\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Login/LoginController.php",
+    "groupTitle": "Login"
+  },
+  {
+    "type": "post",
+    "url": "/register",
+    "title": "register",
+    "name": "register",
+    "group": "Login",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>User phone.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "code",
+            "description": "<p>code</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "password",
+            "description": "<p>password.</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "AccessDenied",
+            "description": "<p>The phone of the User was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 403 Access Denied\n{\n  \"message\": \"验证码不正确\",\n  \"status_code\": 403,\n}",
           "type": "json"
         }
       ]
@@ -1127,7 +1282,7 @@ define({ "api": [
             "type": "string",
             "optional": false,
             "field": "pay_id",
-            "description": "<p>pay_id 支付宝是1，微信扫码支付是6，线下支付是8.</p>"
+            "description": "<p>pay_id 支付宝是1，微信扫码支付是6，线下支付是8,余额支付是2.</p>"
           },
           {
             "group": "Parameter",
@@ -1259,8 +1414,8 @@ define({ "api": [
   },
   {
     "type": "get",
-    "url": "域名/alipay?order_sn=订单order_sn",
-    "title": "支付宝支付接口",
+    "url": "域名/alipay?order_sn=订单order_sn?pay_type=1",
+    "title": "支付宝支付接口 有pay_type表示余额支付",
     "group": "Payment",
     "error": {
       "examples": [
@@ -1274,6 +1429,185 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Payment/PaymentController.php",
     "groupTitle": "Payment",
-    "name": "GetAlipayOrder_snOrder_sn"
+    "name": "GetAlipayOrder_snOrder_snPay_type1"
+  },
+  {
+    "type": "post",
+    "url": "/bindCompany",
+    "title": "bindCompany",
+    "name": "bindCompany",
+    "group": "Register",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "name",
+            "description": "<p>User phone.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "province",
+            "description": "<p>code</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "city",
+            "description": "<p>code</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "district",
+            "description": "<p>code</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "street",
+            "description": "<p>code</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "address",
+            "description": "<p>详细地址</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "bussiness_license",
+            "description": "<p>营业执照url</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "trademark",
+            "description": "<p>商标url</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "people_number",
+            "description": "<p>人数</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "company_industry",
+            "description": "<p>公司行业</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "company_nature",
+            "description": "<p>公司性质</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "AccessDenied",
+            "description": "<p>The phone of the User was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 403 Access Denied\n{\n  \"message\": \"注册失败\",\n  \"status_code\": 422,\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Register/RegisterController.php",
+    "groupTitle": "Register"
+  },
+  {
+    "type": "post",
+    "url": "/updateCompanyPassword",
+    "title": "updateCompanyPassword",
+    "name": "updateCompanyPassword",
+    "group": "Register",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>User phone.</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "string",
+            "optional": false,
+            "field": "code",
+            "description": "<p>code</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success-Response:",
+          "content": "HTTP/1.1 200 OK\n{\n  \"success\": \"1\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "fields": {
+        "Error 4xx": [
+          {
+            "group": "Error 4xx",
+            "optional": false,
+            "field": "AccessDenied",
+            "description": "<p>The phone of the User was error.</p>"
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Error-Response:",
+          "content": "HTTP/1.1 403 Access Denied\n{\n  \"message\": \"注册失败\",\n  \"status_code\": 422,\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "D:/huihjin/git/huijin-api/app/Http/Controllers/Api/v1/Register/RegisterController.php",
+    "groupTitle": "Register"
   }
 ] });
