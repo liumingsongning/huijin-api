@@ -12,7 +12,7 @@ class PaymentController extends BaseController
 {
     use alipay,payment;
     /**
-     * @api {get} 域名/alipay?order_sn=订单order_sn  支付宝支付接口
+     * @api {get} 域名/alipay?order_sn=订单order_sn?pay_type=1 支付宝支付接口 有pay_type表示余额支付
      * @apiGroup Payment
      *
      * @apiErrorExample Error-Response:
@@ -31,8 +31,10 @@ class PaymentController extends BaseController
         if (!$order) {
             return $this->error('404', '未查询到该订单');
         }
-    
-        $log_id = $this->insert_pay_log($order->id, $order->order_amount, PAY_ORDER)->id;
+
+        $order_type=$request->has('pay_type')?PAY_SURPLUS:PAY_ORDER;
+
+        $log_id = $this->insert_pay_log($order->id, $order->order_amount, $order_type)->id;
 
         $obj = $this->getAlipayObj();
         $response = $obj->purchase([

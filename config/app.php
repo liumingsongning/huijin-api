@@ -57,7 +57,7 @@ return [
 
 
 
-    'front_url' => env('APP_FRONT', 'http://www.huijinjiu.com'),
+    'front_url' => env('APP_FRONT', 'http://test.huijinjiu.com'),
 
     /*
     |--------------------------------------------------------------------------

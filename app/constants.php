@@ -65,3 +65,9 @@ define('CS_FINISHED',               102); // 已完成：已确认、已付款�
 /* 帐户明细类型 */
 define('SURPLUS_SAVE',              0); // 为帐户冲值
 define('SURPLUS_RETURN',            1); // 从帐户提款
+
+/* 帐号变动类型 */
+define('ACT_SAVING',                0);     // 帐户冲值
+define('ACT_DRAWING',               1);     // 帐户提款
+define('ACT_ADJUSTING',             2);     // 调节帐户
+define('ACT_OTHER',                99);     // 其他类型

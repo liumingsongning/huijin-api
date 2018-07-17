@@ -33,11 +33,17 @@ class OrderController extends BaseController
      */
     public function index()
     {
+        $page = $request->input('page', 1);
+        $perPage = $request->input('perPage', 10);
+        
         $model = new \App\Models\order_info;
-        $data=$model::with('order_goods')->where('user_id', $this->uid)->simplePaginate(15);
-        if(!Empty($data)){
-            return $this->response->array(['orders'=>$data]);
-        }else{
+
+        $data = $model::with('order_goods')
+            ->where('user_id', $this->uid)
+            ->Paginate($perPage = $perPage, $columns = ['*'], $pageName = 'page', $page = $page);
+        if (!empty($data)) {
+            return $this->response->array(['orders' => $data]);
+        } else {
             $this->error('404', '还没有数据');
         }
     }
@@ -180,7 +186,7 @@ class OrderController extends BaseController
      * @apiParam {string} sign_building 标志建筑
      * @apiParam {string} best_time 最佳送货时间
      * @apiParam {arr} rowIds rowIds 商品id.
-     * @apiParam {string} pay_id pay_id 支付宝是1，微信扫码支付是6，线下支付是8.
+     * @apiParam {string} pay_id pay_id 支付宝是1，微信扫码支付是6，线下支付是8,余额支付是2.
      * @apiParam {string} need_inv 是否需要发票，1是需要，0是不需要
      * @apiParam {string} inv_type 发票样式 '增值税专用发票(一般纳税人)' 或者 '普通发票'.
      * @apiParam {string} inv_payee 发票抬头
@@ -205,9 +211,7 @@ class OrderController extends BaseController
      */
     public function add(Request $request)
     {
-        $cart_type=$request->cart_type;
-
-
+        $cart_type = $request->cart_type;
 
         $model = new \App\Models\order_info;
 
@@ -217,21 +221,20 @@ class OrderController extends BaseController
         $order['order_status'] = OS_UNCONFIRMED;
         $order['shipping_status'] = SS_UNSHIPPED;
         $order['pay_status'] = PS_UNPAYED;
-        $order['referer'] = config('lang.'.$order['referer']);
+        $order['referer'] = config('lang.' . $order['referer']);
         $order['pay_name'] = $this->getPayName($order['pay_id']);
-        
-        
+
         $sn = $order['order_sn'] = $this->get_order_sn();
-        
+
         $rowIds = $request->rowIds;
 
         $goods_amount = 0;
 
         foreach ($rowIds as $value) {
 
-            Cart::restore($this->uid.$cart_type);
+            Cart::restore($this->uid . $cart_type);
             $goods_amount += Cart::get($value)->subtotal;
-            Cart::store($this->uid.$cart_type);
+            Cart::store($this->uid . $cart_type);
 
         }
 
@@ -244,7 +247,7 @@ class OrderController extends BaseController
 
         try {
             $create = $model::create($order);
-            $this->addOrderGoods($rowIds, $order['order_sn'],$cart_type);
+            $this->addOrderGoods($rowIds, $order['order_sn'], $cart_type);
 
             DB::commit();
         } catch (QueryException $ex) {
@@ -256,15 +259,15 @@ class OrderController extends BaseController
         return $this->response->array(['order' => $create]);
 
     }
-    public function addOrderGoods($rowIds, $sn,$cart_type)
+    public function addOrderGoods($rowIds, $sn, $cart_type)
     {
         $order_goods_model = new \App\Models\order_goods;
 
         foreach ($rowIds as $value) {
 
-            Cart::restore($this->uid.$cart_type);
+            Cart::restore($this->uid . $cart_type);
             $cart = Cart::get($value);
-            Cart::store($this->uid.$cart_type);
+            Cart::store($this->uid . $cart_type);
 
             $model = $cart->model;
 
@@ -275,23 +278,24 @@ class OrderController extends BaseController
             $create['goods_number'] = $cart->qty;
             $create['goods_price'] = $cart->price;
             $create['market_price'] = $model->market_price;
-            if($cart->options){ 
-                $products=\App\Models\product::where('goods_attr',json_encode($cart->options))->first();
-                $atts=\App\Models\goods_attr::with('attribute')->whereIn('id',$cart->options)->get();
-                $create['product_id']=$products->id;
-                $create['goods_attr_id']=json_encode($cart->options);
-                $goods_attrs='';
+            if ($cart->options) {
+                $products = \App\Models\product::where('goods_attr', json_encode($cart->options))->first();
+                $atts = \App\Models\goods_attr::with('attribute')->whereIn('id', $cart->options)->get();
+                $create['product_id'] = $products->id;
+                $create['goods_attr_id'] = json_encode($cart->options);
+                $goods_attrs = '';
                 foreach ($atts as $key => $value) {
-                    $goods_attrs.=$value->attribute->attr_name.':'.$value->attr_value.'    ';
+                    $goods_attrs .= $value->attribute->attr_name . ':' . $value->attr_value . '    ';
                 }
-                $create['goods_attr']=$goods_attrs;
+                $create['goods_attr'] = $goods_attrs;
             }
             $order_goods_model::create($create);
 
         }
     }
-    private function getPayName($pay_id){
-        return \App\Models\payment::where('id',$pay_id)->first()->pay_name;
+    private function getPayName($pay_id)
+    {
+        return \App\Models\payment::where('id', $pay_id)->first()->pay_name;
     }
     // $order = array(
     //     // 'consignee'.
