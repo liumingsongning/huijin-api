@@ -31,11 +31,11 @@ class OrderController extends BaseController
      *       "status_code": 404
      *     }
      */
-    public function index()
+    public function index(Request $request)
     {
         $page = $request->input('page', 1);
         $perPage = $request->input('perPage', 10);
-        
+
         $model = new \App\Models\order_info;
 
         $data = $model::with('order_goods')
