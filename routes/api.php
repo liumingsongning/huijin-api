@@ -53,6 +53,11 @@ $api->version('v1', function ($api) {
                 $api->get('updateCompanyPassword','RegisterControler@updateCompanyPassword');
                 $api->get('bindCompany','RegisterControler@bindCompany');
             });
+
+            $api->group(['namespace'=>'\Qiniu'],function($api){
+                $api->post('base64Upload','QiniuController@base64Upload');
+                $api->post('upload','QiniuController@upload');
+            });
            
         });
     });

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "085244e61fe319effb7c387d86bf91ef",
+    "content-hash": "8405f8bbd72227d4130922198116c0bd",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -129,7 +129,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/clue/php-stream-filter/d80fdee9b3a7e0d16fc330a22f41f3ad0eeb09d0.zip",
+                "url": "https://api.github.com/repos/clue/php-stream-filter/zipball/d80fdee9b3a7e0d16fc330a22f41f3ad0eeb09d0",
                 "reference": "d80fdee9b3a7e0d16fc330a22f41f3ad0eeb09d0",
                 "shasum": ""
             },
@@ -181,7 +181,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/dingo/api/d46792602a838d399dc2c84642bb1cddde1a6183.zip",
+                "url": "https://api.github.com/repos/dingo/api/zipball/d46792602a838d399dc2c84642bb1cddde1a6183",
                 "reference": "d46792602a838d399dc2c84642bb1cddde1a6183",
                 "shasum": ""
             },
@@ -541,7 +541,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/dragonmantank/cron-expression/92a2c3768d50e21a1f26a53cb795ce72806266c5.zip",
+                "url": "https://api.github.com/repos/dragonmantank/cron-expression/zipball/92a2c3768d50e21a1f26a53cb795ce72806266c5",
                 "reference": "92a2c3768d50e21a1f26a53cb795ce72806266c5",
                 "shasum": ""
             },
@@ -747,7 +747,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/Crinsane/LaravelShoppingcart/7ff157b7e1ef10d27cd2759d5151aae2cc6b1b9a.zip",
+                "url": "https://api.github.com/repos/Crinsane/LaravelShoppingcart/zipball/7ff157b7e1ef10d27cd2759d5151aae2cc6b1b9a",
                 "reference": "7ff157b7e1ef10d27cd2759d5151aae2cc6b1b9a",
                 "shasum": ""
             },
@@ -807,7 +807,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/guzzle/guzzle/407b0cb880ace85c9b63c5f9551db498cb2d50ba.zip",
+                "url": "https://api.github.com/repos/guzzle/guzzle/zipball/407b0cb880ace85c9b63c5f9551db498cb2d50ba",
                 "reference": "407b0cb880ace85c9b63c5f9551db498cb2d50ba",
                 "shasum": ""
             },
@@ -872,7 +872,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/guzzle/promises/a59da6cf61d80060647ff4d3eb2c03a2bc694646.zip",
+                "url": "https://api.github.com/repos/guzzle/promises/zipball/a59da6cf61d80060647ff4d3eb2c03a2bc694646",
                 "reference": "a59da6cf61d80060647ff4d3eb2c03a2bc694646",
                 "shasum": ""
             },
@@ -923,7 +923,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/guzzle/psr7/f5b8a8512e2b58b0071a7280e39f14f72e05d87c.zip",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
                 "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
                 "shasum": ""
             },
@@ -1075,7 +1075,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/laravel/framework/a15efe4fbcd6b38ea76edc5c8939ffde4f4c7b7f.zip",
+                "url": "https://api.github.com/repos/laravel/framework/zipball/a15efe4fbcd6b38ea76edc5c8939ffde4f4c7b7f",
                 "reference": "a15efe4fbcd6b38ea76edc5c8939ffde4f4c7b7f",
                 "shasum": ""
             },
@@ -1214,7 +1214,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/laravel/socialite/b5f465847b1d637efa86bbfe2fc1c9d2bd12f60f.zip",
+                "url": "https://api.github.com/repos/laravel/socialite/zipball/b5f465847b1d637efa86bbfe2fc1c9d2bd12f60f",
                 "reference": "b5f465847b1d637efa86bbfe2fc1c9d2bd12f60f",
                 "shasum": ""
             },
@@ -1545,7 +1545,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/thephpleague/oauth1-client/fca5f160650cb74d23fc11aa570dd61f86dcf647.zip",
+                "url": "https://api.github.com/repos/thephpleague/oauth1-client/zipball/fca5f160650cb74d23fc11aa570dd61f86dcf647",
                 "reference": "fca5f160650cb74d23fc11aa570dd61f86dcf647",
                 "shasum": ""
             },
@@ -1608,7 +1608,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/lokielse/omnipay-alipay/c4c5d4dad887e1f29f50f7d03f48012ea2271c59.zip",
+                "url": "https://api.github.com/repos/lokielse/omnipay-alipay/zipball/c4c5d4dad887e1f29f50f7d03f48012ea2271c59",
                 "reference": "c4c5d4dad887e1f29f50f7d03f48012ea2271c59",
                 "shasum": ""
             },
@@ -1663,7 +1663,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/lshorz/luocaptcha/f3d635bff03b38bf08e2f0a2da2f849eabdfbd33.zip",
+                "url": "https://api.github.com/repos/lshorz/luocaptcha/zipball/f3d635bff03b38bf08e2f0a2da2f849eabdfbd33",
                 "reference": "f3d635bff03b38bf08e2f0a2da2f849eabdfbd33",
                 "shasum": ""
             },
@@ -1715,7 +1715,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/moneyphp/money/5e6a3c98ba2cb190d48d35656967eacf30716034.zip",
+                "url": "https://api.github.com/repos/moneyphp/money/zipball/5e6a3c98ba2cb190d48d35656967eacf30716034",
                 "reference": "5e6a3c98ba2cb190d48d35656967eacf30716034",
                 "shasum": ""
             },
@@ -1989,7 +1989,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/nikic/PHP-Parser/35b8caf75e791ba1b2d24fec1552168d72692b12.zip",
+                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/35b8caf75e791ba1b2d24fec1552168d72692b12",
                 "reference": "35b8caf75e791ba1b2d24fec1552168d72692b12",
                 "shasum": ""
             },
@@ -2040,7 +2040,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/thephpleague/omnipay-common/66b7934abd2d54cde8b24c5d0b1a5e733339a7e9.zip",
+                "url": "https://api.github.com/repos/thephpleague/omnipay-common/zipball/66b7934abd2d54cde8b24c5d0b1a5e733339a7e9",
                 "reference": "66b7934abd2d54cde8b24c5d0b1a5e733339a7e9",
                 "shasum": ""
             },
@@ -2113,6 +2113,94 @@
             "time": "2018-05-15T08:36:43+00:00"
         },
         {
+            "name": "overtrue/flysystem-qiniu",
+            "version": "1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/flysystem-qiniu.git",
+                "reference": "64e0d51065f0ae5101098d4fcf280af2af453d36"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/overtrue/flysystem-qiniu/zipball/64e0d51065f0ae5101098d4fcf280af2af453d36",
+                "reference": "64e0d51065f0ae5101098d4fcf280af2af453d36",
+                "shasum": ""
+            },
+            "require": {
+                "league/flysystem": "^1.0",
+                "php": ">=5.5.9",
+                "qiniu/php-sdk": "^7.2"
+            },
+            "require-dev": {
+                "mockery/mockery": "1.0.x-dev",
+                "php": ">=5.6.0",
+                "phpunit/phpunit": "~4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\Flysystem\\Qiniu\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "i@overtrue.me"
+                }
+            ],
+            "description": "Flysystem adapter for the Qiniu storage.",
+            "time": "2017-11-29T06:50:29+00:00"
+        },
+        {
+            "name": "overtrue/laravel-filesystem-qiniu",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/overtrue/laravel-filesystem-qiniu.git",
+                "reference": "315dcb03c2afa448eaa4e60721072a183f302408"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/overtrue/laravel-filesystem-qiniu/zipball/315dcb03c2afa448eaa4e60721072a183f302408",
+                "reference": "315dcb03c2afa448eaa4e60721072a183f302408",
+                "shasum": ""
+            },
+            "require": {
+                "league/flysystem": "^1.0",
+                "overtrue/flysystem-qiniu": "^1.0.2",
+                "php": ">=5.5.9"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Overtrue\\LaravelFilesystem\\Qiniu\\QiniuStorageServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Overtrue\\LaravelFilesystem\\Qiniu\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "overtrue",
+                    "email": "i@overtrue.me"
+                }
+            ],
+            "description": "A Qiniu storage filesystem for Laravel.",
+            "time": "2017-11-29T06:55:32+00:00"
+        },
+        {
             "name": "paragonie/random_compat",
             "version": "v2.0.15",
             "source": {
@@ -2122,7 +2210,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/paragonie/random_compat/10bcb46e8f3d365170f6de9d05245aa066b81f09.zip",
+                "url": "https://api.github.com/repos/paragonie/random_compat/zipball/10bcb46e8f3d365170f6de9d05245aa066b81f09",
                 "reference": "10bcb46e8f3d365170f6de9d05245aa066b81f09",
                 "shasum": ""
             },
@@ -2171,7 +2259,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/php-http/discovery/9a6cb24de552bfe1aa9d7d1569e2d49c5b169a33.zip",
+                "url": "https://api.github.com/repos/php-http/discovery/zipball/9a6cb24de552bfe1aa9d7d1569e2d49c5b169a33",
                 "reference": "9a6cb24de552bfe1aa9d7d1569e2d49c5b169a33",
                 "shasum": ""
             },
@@ -2233,7 +2321,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/php-http/guzzle6-adapter/a56941f9dc6110409cfcddc91546ee97039277ab.zip",
+                "url": "https://api.github.com/repos/php-http/guzzle6-adapter/zipball/a56941f9dc6110409cfcddc91546ee97039277ab",
                 "reference": "a56941f9dc6110409cfcddc91546ee97039277ab",
                 "shasum": ""
             },
@@ -2293,7 +2381,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/php-http/httplug/1c6381726c18579c4ca2ef1ec1498fdae8bdf018.zip",
+                "url": "https://api.github.com/repos/php-http/httplug/zipball/1c6381726c18579c4ca2ef1ec1498fdae8bdf018",
                 "reference": "1c6381726c18579c4ca2ef1ec1498fdae8bdf018",
                 "shasum": ""
             },
@@ -2349,7 +2437,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/php-http/message/2edd63bae5f52f79363c5f18904b05ce3a4b7253.zip",
+                "url": "https://api.github.com/repos/php-http/message/zipball/2edd63bae5f52f79363c5f18904b05ce3a4b7253",
                 "reference": "2edd63bae5f52f79363c5f18904b05ce3a4b7253",
                 "shasum": ""
             },
@@ -2421,7 +2509,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/php-http/message-factory/a478cb11f66a6ac48d8954216cfed9aa06a501a1.zip",
+                "url": "https://api.github.com/repos/php-http/message-factory/zipball/a478cb11f66a6ac48d8954216cfed9aa06a501a1",
                 "reference": "a478cb11f66a6ac48d8954216cfed9aa06a501a1",
                 "shasum": ""
             },
@@ -2471,7 +2559,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/php-http/promise/dc494cdc9d7160b9a09bd5573272195242ce7980.zip",
+                "url": "https://api.github.com/repos/php-http/promise/zipball/dc494cdc9d7160b9a09bd5573272195242ce7980",
                 "reference": "dc494cdc9d7160b9a09bd5573272195242ce7980",
                 "shasum": ""
             },
@@ -2667,7 +2755,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/nrk/predis/f0210e38881631afeafb56ab43405a92cafd9fd1.zip",
+                "url": "https://api.github.com/repos/nrk/predis/zipball/f0210e38881631afeafb56ab43405a92cafd9fd1",
                 "reference": "f0210e38881631afeafb56ab43405a92cafd9fd1",
                 "shasum": ""
             },
@@ -2766,7 +2854,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/php-fig/http-message/f6561bf28d520154e4b0ec72be95418abe6d9363.zip",
+                "url": "https://api.github.com/repos/php-fig/http-message/zipball/f6561bf28d520154e4b0ec72be95418abe6d9363",
                 "reference": "f6561bf28d520154e4b0ec72be95418abe6d9363",
                 "shasum": ""
             },
@@ -2911,7 +2999,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/bobthecow/psysh/4a2ce86f199d51b6e2524214dc06835e872f4fce.zip",
+                "url": "https://api.github.com/repos/bobthecow/psysh/zipball/4a2ce86f199d51b6e2524214dc06835e872f4fce",
                 "reference": "4a2ce86f199d51b6e2524214dc06835e872f4fce",
                 "shasum": ""
             },
@@ -2972,6 +3060,57 @@
                 "shell"
             ],
             "time": "2018-06-10T17:57:20+00:00"
+        },
+        {
+            "name": "qiniu/php-sdk",
+            "version": "v7.2.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/qiniu/php-sdk.git",
+                "reference": "305ce1c1c0c71f794661fe45a96facf61ef96c5d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/qiniu/php-sdk/zipball/305ce1c1c0c71f794661fe45a96facf61ef96c5d",
+                "reference": "305ce1c1c0c71f794661fe45a96facf61ef96c5d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "~2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Qiniu\\": "src/Qiniu"
+                },
+                "files": [
+                    "src/Qiniu/functions.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Qiniu",
+                    "email": "sdk@qiniu.com",
+                    "homepage": "http://www.qiniu.com"
+                }
+            ],
+            "description": "Qiniu Resource (Cloud) Storage SDK for PHP",
+            "homepage": "http://developer.qiniu.com/",
+            "keywords": [
+                "cloud",
+                "qiniu",
+                "sdk",
+                "storage"
+            ],
+            "time": "2018-05-18T04:37:29+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -3063,7 +3202,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/SocialiteProviders/Manager/1de3f3d874392da6f1a4c0bf30d843e9cd903ea7.zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/Manager/zipball/1de3f3d874392da6f1a4c0bf30d843e9cd903ea7",
                 "reference": "1de3f3d874392da6f1a4c0bf30d843e9cd903ea7",
                 "shasum": ""
             },
@@ -3112,7 +3251,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/SocialiteProviders/QQ/fc338245c348189880911827c162ef73f651ba44.zip",
+                "url": "https://api.github.com/repos/SocialiteProviders/QQ/zipball/fc338245c348189880911827c162ef73f651ba44",
                 "reference": "fc338245c348189880911827c162ef73f651ba44",
                 "shasum": ""
             },
@@ -3204,7 +3343,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/console/2d5d973bf9933d46802b01010bd25c800c87c242.zip",
+                "url": "https://api.github.com/repos/symfony/console/zipball/2d5d973bf9933d46802b01010bd25c800c87c242",
                 "reference": "2d5d973bf9933d46802b01010bd25c800c87c242",
                 "shasum": ""
             },
@@ -3272,7 +3411,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/css-selector/03ac71606ecb0b0ce792faa17d74cc32c2949ef4.zip",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/03ac71606ecb0b0ce792faa17d74cc32c2949ef4",
                 "reference": "03ac71606ecb0b0ce792faa17d74cc32c2949ef4",
                 "shasum": ""
             },
@@ -3325,7 +3464,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/debug/449f8b00b28ab6e6912c3e6b920406143b27193b.zip",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/449f8b00b28ab6e6912c3e6b920406143b27193b",
                 "reference": "449f8b00b28ab6e6912c3e6b920406143b27193b",
                 "shasum": ""
             },
@@ -3381,7 +3520,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/event-dispatcher/2391ed210a239868e7256eb6921b1bd83f3087b5.zip",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/2391ed210a239868e7256eb6921b1bd83f3087b5",
                 "reference": "2391ed210a239868e7256eb6921b1bd83f3087b5",
                 "shasum": ""
             },
@@ -3444,7 +3583,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/finder/087e2ee0d74464a4c6baac4e90417db7477dc238.zip",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/087e2ee0d74464a4c6baac4e90417db7477dc238",
                 "reference": "087e2ee0d74464a4c6baac4e90417db7477dc238",
                 "shasum": ""
             },
@@ -3493,7 +3632,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/http-foundation/a916c88390fb861ee21f12a92b107d51bb68af99.zip",
+                "url": "https://api.github.com/repos/symfony/http-foundation/zipball/a916c88390fb861ee21f12a92b107d51bb68af99",
                 "reference": "a916c88390fb861ee21f12a92b107d51bb68af99",
                 "shasum": ""
             },
@@ -3547,7 +3686,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/http-kernel/b5ab9d4cdbfd369083744b6b5dfbf454e31e5f90.zip",
+                "url": "https://api.github.com/repos/symfony/http-kernel/zipball/b5ab9d4cdbfd369083744b6b5dfbf454e31e5f90",
                 "reference": "b5ab9d4cdbfd369083744b6b5dfbf454e31e5f90",
                 "shasum": ""
             },
@@ -3911,7 +4050,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/process/73445bd33b0d337c060eef9652b94df72b6b3434.zip",
+                "url": "https://api.github.com/repos/symfony/process/zipball/73445bd33b0d337c060eef9652b94df72b6b3434",
                 "reference": "73445bd33b0d337c060eef9652b94df72b6b3434",
                 "shasum": ""
             },
@@ -3960,7 +4099,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/routing/180b51c66d10f09e562c9ebc395b39aacb2cf8a2.zip",
+                "url": "https://api.github.com/repos/symfony/routing/zipball/180b51c66d10f09e562c9ebc395b39aacb2cf8a2",
                 "reference": "180b51c66d10f09e562c9ebc395b39aacb2cf8a2",
                 "shasum": ""
             },
@@ -4038,7 +4177,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/translation/16328f5b217cebc8dd4adfe4aeeaa8c377581f5a.zip",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/16328f5b217cebc8dd4adfe4aeeaa8c377581f5a",
                 "reference": "16328f5b217cebc8dd4adfe4aeeaa8c377581f5a",
                 "shasum": ""
             },
@@ -4107,7 +4246,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://files.phpcomposer.com/files/symfony/var-dumper/bc88ad53e825ebacc7b190bbd360781fce381c64.zip",
+                "url": "https://api.github.com/repos/symfony/var-dumper/zipball/bc88ad53e825ebacc7b190bbd360781fce381c64",
                 "reference": "bc88ad53e825ebacc7b190bbd360781fce381c64",
                 "shasum": ""
             },

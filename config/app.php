@@ -154,6 +154,7 @@ return [
         Barryvdh\Cors\ServiceProvider::class,
         Gloudemans\Shoppingcart\ShoppingcartServiceProvider::class,
         \SocialiteProviders\Manager\ServiceProvider::class, 
+        Overtrue\LaravelFilesystem\Qiniu\QiniuStorageServiceProvider::class,
         //Tymon\JWTAuth\Providers\JWTAuthServiceProvider::class,
 
         /*
