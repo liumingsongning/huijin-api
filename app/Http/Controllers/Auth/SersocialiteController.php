@@ -52,7 +52,7 @@ class SersocialiteController extends Controller
                 $model->fill($qq_user);
                 $model->save($qq_user);
                
-                return redirect()->away(config('app.front_url').'/bind?type=qq&qq_id=' . $user->id);
+                return redirect()->away(config('app.front_url').'/bind?type=qq&oauth_id=' . $user->id);
             }
         }
         // $user->token;
