@@ -332,4 +332,120 @@ class OrderController extends BaseController
     //     'pay_status' => PS_UNPAYED,
     //     // 'agency_id' => $request->agency_id,
     // );
+    public function orderGoodgetUniqueGood(Request $request)
+    {
+        $page = $request->input('page', 1);
+        $perPage = $request->input('perPage', 10);
+        $order_good_id = $request->order_good_id;
+        $data = \App\Models\order_join_unique::with('unique_good')->where('order_good_id', $order_good_id)
+            ->Paginate($perPage = $perPage, $columns = ['*'], $pageName = 'page', $page = $page);
+        if (!empty($data)) {
+            return $this->response->array(['orders' => $data]);
+        } else {
+            $this->error('404', '还没有数据');
+        }
+    }
+    /**
+     * @api {post} /order/addSecondHand addSecondHand
+     * @apiName addSecondHand
+     * @apiGroup Order
+     *
+     *
+     * @apiParam {string} consignee 收件人.
+     * @apiParam {string} email 邮件地址
+     * @apiParam {string} province 省码
+     * @apiParam {string} city 城市码.
+     * @apiParam {string} district 地区码
+     * @apiParam {string} street 街道码
+     * @apiParam {string} address 地址全文.
+     * @apiParam {string} zipcode 邮政编码
+     * @apiParam {string} tel 座机
+     * @apiParam {string} mobile 手机
+     * @apiParam {string} sign_building 标志建筑
+     * @apiParam {string} best_time 最佳送货时间
+     * @apiParam {arr} unique_good_id unique_good_id 商品id.
+     * @apiParam {arr} unique_good_market_id unique_good_market_id 二手市场id.
+     * @apiParam {string} pay_id pay_id 支付宝是1，微信扫码支付是6，线下支付是8,余额支付是2
+     * @apiParam {string} referer 'self_site'
+     *
+     * @apiSuccessExample Success-Response:
+     *     HTTP/1.1 200 OK
+     *     {
+     *       "order": "添加的订单详情"
+     *     }
+     *
+     * @apiError AccessDenied The phone of the User was error.
+     *
+     * @apiErrorExample Error-Response:
+     *     HTTP/1.1 422 Access Denied
+     *     {
+     *       "message": "订单添加失败",
+     *       "status_code": 422,
+     *     }
+     */
+    public function addSecondHand(Request $request)
+    {
+        $model = new \App\Models\order_info;
+
+        $order = $request->all();
+        $order['user_id'] = $this->uid;
+        $order['add_time'] = time();
+        $order['order_status'] = OS_UNCONFIRMED;
+        $order['shipping_status'] = SS_UNSHIPPED;
+        $order['pay_status'] = PS_UNPAYED;
+        $order['referer'] = config('lang.' . $order['referer']);
+        $order['pay_name'] = $this->getPayName($order['pay_id']);
+        $order['is_second_hand'] = 1;
+
+        $sn = $order['order_sn'] = $this->get_order_sn();
+        
+        $unique_good_market_id=$request->unique_good_market_id;
+
+        $unique_good_market=\App\Models\unique_good_market::where('id',$unique_good_market_id)->first();
+
+        $order['goods_amount'] = $order['order_amount'] = $unique_good_market->price;
+
+        DB::beginTransaction();
+
+        try {
+            $create = $model::create($order);
+            $good=$this->addSecondHandOrderGoods($request->unique_good_id, $order['order_sn'],$unique_good_market);
+
+            DB::commit();
+        } catch (QueryException $ex) {
+            return $ex;
+            DB::rollback();
+            return $this->error('422', '订单添加失败');
+        }
+
+        \App\Models\order_join_unique::where('id',$good->id)->update(['unique_good_id'=>$request->unique_good_id]);
+
+        return $this->response->array(['order' => $create]);
+
+    }
+    public function addSecondHandOrderGoods($unique_good_id, $order_sn,$unique_good_market)
+    {
+        $unique_good=\App\Models\unique_good::where('id',$unique_good_id)->first();
+        $create['order_sn'] = $order_sn;
+        $create['goods_id'] = $unique_good->id;
+        $create['goods_name'] = $unique_good->goods_name;
+        $create['goods_sn'] = $unique_good->goods_sn;
+        $create['goods_number'] =1;
+        $create['goods_price'] = $unique_good_market->price;
+        $create['market_price'] =$unique_good_market->price;
+       
+        $create['product_id'] = $unique_good->product_id;
+        $create['goods_attr_id'] = $unique_good->goods_attr_id;
+        
+        $create['goods_attr'] = $unique_good->goods_attr;
+        
+        $create['unique_good_market_id'] = $unique_good_market->id;
+        $order_goods_model = new \App\Models\order_goods;
+        $data=$order_goods_model::create($create);
+
+        $unique_good_market->status=UNI_AWAIT_PAY;
+        $unique_good_market->save();
+
+        return $data;
+    }
 }

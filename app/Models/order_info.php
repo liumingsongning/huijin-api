@@ -12,4 +12,15 @@ class order_info extends Model
     public function order_goods(){
         return $this->hasMany('\App\Models\order_goods','order_sn','order_sn');
     }
+
+    public function unique()
+    {
+        return $this->hasManyThrough(
+            'App\Models\order_join_unique', 
+            '\App\Models\order_goods',
+            'order_sn',
+            'order_good_id',
+            'order_sn'
+        );
+    }
 }

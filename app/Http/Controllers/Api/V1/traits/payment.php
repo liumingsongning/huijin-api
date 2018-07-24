@@ -39,7 +39,7 @@ trait payment
                 /* 根据记录类型做相应处理 */
                 if ($pay_log->order_type == PAY_ORDER) {
                     /* 取得订单信息 */
-                    $order = \App\Models\order_info::where('id', $pay_log->order_id)->first();
+                    $order = \App\Models\order_info::with('order_goods')->where('id', $pay_log->order_id)->first();
 
                     /* 修改订单状态为已付款 */
                     $order->order_status = OS_CONFIRMED;
@@ -47,6 +47,9 @@ trait payment
                     $order->pay_status = $pay_status;
                     $order->pay_time = time();
                     $order->save();
+                    if($order->is_second_hand==1){
+                        \App\Models\unique_good_market::where('id',$order->order_goods[0]->unique_good_market_id)->update(['status'=>UNI_PAYED,'buy_uid'=>$order->user_id]);
+                    }
                     /* 记录订单操作记录 */
                     $this->order_action($order->order_sn, OS_CONFIRMED, SS_UNSHIPPED, $pay_status, $note, config('lang.buyer'));
                     /* 客户付款时给商家发送短信提醒 */

@@ -23,6 +23,8 @@ define('PAY_ORDER',                 0); // 订单支付
 
 define('PAY_SURPLUS',               1); // 会员预付款
 
+define('PAY_UNIQUE',               1); // 收藏商品付款
+
 
 
 /* 配送状态 */
@@ -71,3 +73,9 @@ define('ACT_SAVING',                0);     // 帐户冲值
 define('ACT_DRAWING',               1);     // 帐户提款
 define('ACT_ADJUSTING',             2);     // 调节帐户
 define('ACT_OTHER',                99);     // 其他类型
+
+/* 二手物品交易类型 */
+
+define('UNI_PUBLISH',                0);     // 收藏商品发布
+define('UNI_AWAIT_PAY',              1);    // 收藏商品被拍下未付款
+define('UNI_PAYED',                  2);    // 收藏商品已付款

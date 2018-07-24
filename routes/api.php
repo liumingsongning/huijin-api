@@ -41,10 +41,15 @@ $api->version('v1', function ($api) {
                 $api->post('order/minus','OrderController@minus');
                 $api->post('order/remove','OrderController@remove');
                 $api->post('order/clear','OrderController@clear');
+                $api->post('orderGoodgetUniqueGood','OrderController@orderGoodgetUniqueGood');
             });
 
             $api->group(['namespace'=>'\User'],function($api){
                 $api->get('userinfo','UserController@userinfo');
+            });
+           
+            $api->group(['namespace'=>'\UnqueGoodMarket'],function($api){
+                $api->post('publish','UnqueGoodMarketController@publish');
             });
            
             $api->resource('address','Address\AddressController');
