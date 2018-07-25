@@ -55,8 +55,8 @@ $api->version('v1', function ($api) {
             $api->resource('address','Address\AddressController');
 
             $api->group(['namespace'=>'\Register'],function($api){
-                $api->get('updateCompanyPassword','RegisterControler@updateCompanyPassword');
-                $api->get('bindCompany','RegisterControler@bindCompany');
+                $api->post('updateCompanyPassword','RegisterController@updateCompanyPassword');
+                $api->post('bindCompany','RegisterController@bindCompany');
             });
 
             $api->group(['namespace'=>'\Qiniu'],function($api){

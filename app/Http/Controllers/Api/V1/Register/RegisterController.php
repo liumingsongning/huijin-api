@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Api\V1\Register;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\BaseController;
 
-class RegisterController extends Controller
+class RegisterController extends BaseController
 {
         /**
      * @api {post} /updateCompanyPassword updateCompanyPassword
@@ -50,7 +50,6 @@ class RegisterController extends Controller
      * @apiName bindCompany
      * @apiGroup Register
      *
-     * @apiParam {string} name User phone.
      * @apiParam {string} province code
      * @apiParam {string} city code
      * @apiParam {string} district code
@@ -61,6 +60,9 @@ class RegisterController extends Controller
      * @apiParam {string} people_number 人数
      * @apiParam {string} company_industry 公司行业
      * @apiParam {string} company_nature 公司性质
+     * @apiParam {string} business_volume 公司营业额
+     * @apiParam {string} contact_name 联系人
+     * @apiParam {string} section 部门
      *
      * @apiSuccessExample Success-Response:
      *     HTTP/1.1 200 OK
@@ -78,10 +80,16 @@ class RegisterController extends Controller
      *     }
      */
     public function bindCompany(Request $request){
-       
+
         $company=$request->all();
-        $company['uid']->$this->uid;
-        $data=\App\Models\company_user::create($company);
+        $company['uid']=$this->uid;
+        $company_user=\App\Models\company_user::where('uid',$this->uid)->first();
+        if($company_user){
+            $data=\App\Models\company_user::update($company);
+        }else{
+            $data=\App\Models\company_user::create($company);
+        }
+        
         if($data){
             return $this->response->array(['company' =>$data]);
         }else{

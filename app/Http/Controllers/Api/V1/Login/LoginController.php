@@ -321,7 +321,7 @@ class LoginController extends BaseController
         if ($this->checkCode($phone, $request->code)) {
             $user = \App\User::where('phone',$phone)->first();
             if($user){
-                $this->error('422','该手机号已注册');
+                $this->error('422','该手机号已注册过请更换手机号重试');
             }else{
                 $newUser['phone']=$phone;
                 $newUser['name']=$phone;
