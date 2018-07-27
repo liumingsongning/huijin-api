@@ -224,5 +224,6 @@ return [
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
 
     ],
+    'order_ttl' => 172800,
 
 ];

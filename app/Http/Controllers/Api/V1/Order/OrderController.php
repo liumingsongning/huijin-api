@@ -8,6 +8,7 @@ use Cart;
 use DB;
 use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
+use App\Jobs\CloseOrder;
 
 class OrderController extends BaseController
 {
@@ -255,7 +256,7 @@ class OrderController extends BaseController
             DB::rollback();
             return $this->error('422', '订单添加失败');
         }
-
+        $this->dispatch(new CloseOrder($create, config('app.order_ttl')));
         return $this->response->array(['order' => $create]);
 
     }
@@ -341,7 +342,7 @@ class OrderController extends BaseController
         $data = \App\Models\order_join_unique::with('unique_good')->where('order_good_id', $order_good_id)
             ->Paginate($perPage = $perPage, $columns = ['*'], $pageName = 'page', $page = $page);
         if (!empty($data)) {
-            return $this->response->array(['orders' => $data]);
+            return $this->response->array(['goods' => $data]);
         } else {
             $this->error('404', '还没有数据');
         }

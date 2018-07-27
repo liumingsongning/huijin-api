@@ -41,7 +41,7 @@ $api->version('v1', function ($api) {
                 $api->post('order/minus','OrderController@minus');
                 $api->post('order/remove','OrderController@remove');
                 $api->post('order/clear','OrderController@clear');
-                $api->post('orderGoodgetUniqueGood','OrderController@orderGoodgetUniqueGood');
+                $api->get('orderGoodgetUniqueGood','OrderController@orderGoodgetUniqueGood');
             });
 
             $api->group(['namespace'=>'\User'],function($api){
