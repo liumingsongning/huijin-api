@@ -1,21 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\UnqueGoodMarket;
+namespace App\Http\Controllers\Api\V1\UniqueGoodMarket;
 
 use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
 use DB;
-class UnqueGoodMarketController extends BaseController
+class UniqueGoodMarketController extends BaseController
 {
     public function index(Request $request){
         $page = $request->input('page', 1);
         $perPage = $request->input('perPage', 10);
 
-        $model = new \App\Models\unique_good_mardet;
+        $model =\App\Models\unique_good_market::with('unique_good');
 
-        $data = $model::Paginate($perPage = $perPage, $columns = ['*'], $pageName = 'page', $page = $page);
+        if($request->q&&$request->q!=''){
+            $q='%' . $request->q . '%';
+            $model=$model->whereHas('unique_good',function($query)use($q){
+                $query->where('goods_name', 'like', $q);
+            });
+        }
+
+        $data = $model->Paginate($perPage = $perPage, $columns = ['*'], $pageName = 'page', $page = $page);
         if (!empty($data)) {
-            return $this->response->array(['orders' => $data]);
+            return $this->response->array(['markets' => $data]);
         } else {
             $this->error('404', '还没有数据');
         }

@@ -94,7 +94,7 @@ class BuyNowCartController extends BaseController
             Cart::restore($this->uid . 'buynow');
             Cart::destroy();
             if ($request->has('spe')) {
-                Cart::add($good, 1, $request->spe)->associate('\App\Models\good');
+                Cart::add($good, 1, ['product_id'=>$request->spe])->associate('\App\Models\good');
             } else {
                 Cart::add($good)->associate('\App\Models\good');
             }

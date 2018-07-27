@@ -48,8 +48,9 @@ $api->version('v1', function ($api) {
                 $api->get('userinfo','UserController@userinfo');
             });
            
-            $api->group(['namespace'=>'\UnqueGoodMarket'],function($api){
-                $api->post('publish','UnqueGoodMarketController@publish');
+            $api->group(['namespace'=>'\UniqueGoodMarket'],function($api){
+                $api->post('publish','UniqueGoodMarketController@publish');
+                $api->resource('uniqueGoodMartet','UniqueGoodMarketController');
             });
            
             $api->resource('address','Address\AddressController');

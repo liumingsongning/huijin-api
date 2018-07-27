@@ -18,8 +18,9 @@ class good extends Model implements Buyable
     public function getBuyablePrice($options = null){
         if($options){
             $price=$this->market_price;
+            $suk=\App\Models\product::find($options['product_id'])->goods_attr;
             $attrs=\App\Models\goods_attr::where('goods_id',$this->id)->get();
-            foreach ($options as $key => $value) {
+            foreach (json_decode($suk) as $key => $value) {
                 foreach ($attrs as $attr) {
                     if($attr->id==$value){
                         $price+=$attr->attr_price;

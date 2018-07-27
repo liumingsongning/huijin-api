@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1\Register;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Api\BaseController;
-
+use Hash;
 class RegisterController extends BaseController
 {
         /**

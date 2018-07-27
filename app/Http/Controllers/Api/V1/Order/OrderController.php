@@ -278,11 +278,12 @@ class OrderController extends BaseController
             $create['goods_number'] = $cart->qty;
             $create['goods_price'] = $cart->price;
             $create['market_price'] = $model->market_price;
+            $create['is_storage'] = $model->is_storage;
             if ($cart->options) {
-                $products = \App\Models\product::where('goods_attr', json_encode($cart->options))->first();
-                $atts = \App\Models\goods_attr::with('attribute')->whereIn('id', $cart->options)->get();
-                $create['product_id'] = $products->id;
-                $create['goods_attr_id'] = json_encode($cart->options);
+                $product = \App\Models\product::find($cart->options['product_id']);
+                $atts = \App\Models\goods_attr::with('attribute')->whereIn('id', json_decode($product->goods_attr))->get();
+                $create['product_id'] = $product->id;
+                $create['goods_attr_id'] = $product->goods_attr;
                 $goods_attrs = '';
                 foreach ($atts as $key => $value) {
                     $goods_attrs .= $value->attribute->attr_name . ':' . $value->attr_value . '    ';
@@ -438,6 +439,7 @@ class OrderController extends BaseController
         $create['goods_attr_id'] = $unique_good->goods_attr_id;
         
         $create['goods_attr'] = $unique_good->goods_attr;
+        $create['is_storage'] =1;
         
         $create['unique_good_market_id'] = $unique_good_market->id;
         $order_goods_model = new \App\Models\order_goods;

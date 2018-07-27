@@ -17,8 +17,8 @@ trait cartTrait{
             $data['subtotal']=$row->subtotal;
             $data['model']=$row->model;
             if($row->options){ 
-                $data['products']=\App\Models\product::where('goods_attr',json_encode($row->options))->first();
-                $data['atts']=\App\Models\goods_attr::with('attribute')->whereIn('id',$row->options)->get();
+                $data['products']=\App\Models\product::find($row->options['product_id']);
+                $data['atts']=\App\Models\goods_attr::with('attribute')->whereIn('id',json_decode($data['products']->goods_attr))->get();
                
             }
             $call[]=$data;

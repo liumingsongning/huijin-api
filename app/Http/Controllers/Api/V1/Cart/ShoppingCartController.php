@@ -114,7 +114,7 @@ class ShoppingCartController extends BaseController
 
             Cart::restore($this->uid.'shopping');
             if($request->has('spe')){
-                Cart::add($good,1,$request->spe)->associate('\App\Models\good');
+                Cart::add($good,1, ['product_id'=>$request->spe])->associate('\App\Models\good');
             }else{
                 Cart::add($good)->associate('\App\Models\good');
             }
