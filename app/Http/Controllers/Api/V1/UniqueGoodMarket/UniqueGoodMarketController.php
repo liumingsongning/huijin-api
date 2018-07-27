@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\UniqueGoodMarket;
 
 use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
+use App\Jobs\SoldoutUnique;
 use DB;
 class UniqueGoodMarketController extends BaseController
 {
@@ -53,6 +54,7 @@ class UniqueGoodMarketController extends BaseController
             $create['status']=UNI_PUBLISH;
             $data=\App\Models\unique_good_market::create($create);
             if ($data) {
+                $this->dispatch(new SoldoutUnique($data, config('app.SoldoutUnique_ttl')));
                 return $this->response->array(['data'=>$data]);
             } else {
                 throw $this->error('422', '发布商品失败');

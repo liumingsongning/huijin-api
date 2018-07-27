@@ -225,5 +225,6 @@ return [
 
     ],
     'order_ttl' => 172800,
+    'SoldoutUnique_ttl'=>604800,
 
 ];

@@ -79,3 +79,4 @@ define('ACT_OTHER',                99);     // 其他类型
 define('UNI_PUBLISH',                0);     // 收藏商品发布
 define('UNI_AWAIT_PAY',              1);    // 收藏商品被拍下未付款
 define('UNI_PAYED',                  2);    // 收藏商品已付款
+define('UNI_SOLDOUT',                3);    // 收藏商品下架
