@@ -17,6 +17,7 @@ $api->version('v1', function ($api) {
         });
         $api->group(['namespace'=>'\Goods'],function($api){
             $api->resource('goods','GoodsController');
+            $api->resource('unique','UniqueController');
         });
         $api->group(['middleware' => 'api.auth'],function($api){
             $api->group(['namespace'=>'\Cart'],function($api){
@@ -49,11 +50,13 @@ $api->version('v1', function ($api) {
             });
            
             $api->group(['namespace'=>'\UniqueGoodMarket'],function($api){
-                $api->post('publish','UniqueGoodMarketController@publish');
+                $api->post('resale\publish','UniqueGoodMarketController@publish');
                 $api->resource('uniqueGoodMartet','UniqueGoodMarketController');
             });
            
             $api->resource('address','Address\AddressController');
+            $api->resource('UserCreditedAccount','UserCreditedAccount\UserCreditedAccountController');
+            $api->get('ownerCreditedAccount','UserCreditedAccount\UserCreditedAccountController@ownerCreditedAccount');
 
             $api->group(['namespace'=>'\Register'],function($api){
                 $api->post('updateCompanyPassword','RegisterController@updateCompanyPassword');

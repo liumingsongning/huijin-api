@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1\Goods;
+namespace App\Http\Controllers\Api\V1\UserCreditedAccount;
 
-use App\Http\Controllers\Api\BaseController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Api\BaseController;
 
-class UniqueController extends BaseController
+class UserCreditedAccountController extends BaseController
 {
     /**
      * Display a listing of the resource.
@@ -22,9 +22,9 @@ class UniqueController extends BaseController
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+       
     }
 
     /**
@@ -35,7 +35,14 @@ class UniqueController extends BaseController
      */
     public function store(Request $request)
     {
-        //
+        $create=$request->all();
+        $create['uid']=$this->uid;
+        $data=\App\Models\user_credited_account::create($create);
+        if($data){
+            return $this->response->array(['account'=>$data]);
+        }else{
+            throw $this->error('422', '创建失败');
+        }
     }
 
     /**
@@ -46,13 +53,7 @@ class UniqueController extends BaseController
      */
     public function show($id)
     {
-        $data = \App\Models\unique_good::find($id);
-
-        if ($data) {
-            return $this->response->array($data);
-        } else {
-            throw $this->error('404', '未发现该商品');
-        }
+        //
     }
 
     /**
@@ -89,5 +90,12 @@ class UniqueController extends BaseController
         //
     }
 
-    
+    public function ownerCreditedAccount(Request $request){
+        $data=\App\Models\user_credited_account::where('uid',$this->uid)->get();
+        if($data->isNotEmpty()){
+            return $this->response->array(['account'=>$data]);
+        }else{
+            throw $this->error('422', '创建失败');
+        }
+    }
 }

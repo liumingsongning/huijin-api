@@ -52,9 +52,11 @@ class UniqueGoodMarketController extends BaseController
             $create['introduction']=$request->introduction;
             $create['price']=$request->price;
             $create['status']=UNI_PUBLISH;
+            $create['sale_user_phone']=$request->sale_user_phone;
+            $create['user_credited_account']=$request->user_credited_account;
             $data=\App\Models\unique_good_market::create($create);
             if ($data) {
-                $this->dispatch(new SoldoutUnique($data, config('app.SoldoutUnique_ttl')));
+                // $this->dispatch(new SoldoutUnique($data, config('app.SoldoutUnique_ttl')));
                 return $this->response->array(['data'=>$data]);
             } else {
                 throw $this->error('422', '发布商品失败');
